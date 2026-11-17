@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-obsidian: #100F0E;
+  --color-charcoal: #292725;
+  --color-espresso: #39271F;
+  --color-cacao: #4A3328;
+  --color-ash: #898075;
+  --color-gold: #B39154;
+  --color-ivory: #EAE1D5;
+  --color-champagne: #C9B99F;
+}
+
+/* Base resets & typography */
+html {
+  background-color: #100F0E;
+  color: #EAE1D5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #100F0E;
+  color: #EAE1D5;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Selection */
+::selection {
+  background-color: #4A3328;
+  color: #EAE1D5;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #100F0E;
+}
+::-webkit-scrollbar-thumb {
+  background: #39271F;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B39154;
+}
+
+/* Film grain subtle texture overlay */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Gold foil gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #EAE1D5 0%, #B39154 50%, #C9B99F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dark metallic glow */
+.gold-border-glow {
+  border-color: rgba(179, 145, 84, 0.25);
+  box-shadow: 0 0 20px rgba(179, 145, 84, 0.08);
+}
+
+.gold-border-glow:hover {
+  border-color: rgba(179, 145, 84, 0.5);
+  box-shadow: 0 0 25px rgba(179, 145, 84, 0.18);
+}
+
+/* Fine hairline lines */
+.hairline-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(179, 145, 84, 0.35) 50%, transparent);
+}
+
+.hairline-gold-solid {
+  height: 1px;
+  background-color: rgba(179, 145, 84, 0.2);
+}
+
+/* Smooth clip-path animations */
+.clip-curtain {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clip-curtain-hidden {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+/* Hide cursor on touch devices or where custom cursor is active */
+@media (pointer: fine) {
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea {
+    cursor: none;
+  }
+}
+
+/* Accessibility: Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

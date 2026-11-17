@@ -1,0 +1,182 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Clock, Sparkles } from "lucide-react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { JOURNAL_ARTICLES } from "@/data/journal";
+
+export default function JournalPage() {
+  const [filter, setFilter] = useState<string>("all");
+
+  const categories = ["all", "Terroir & Tasting", "Craftsmanship & Science", "Philosophy"];
+
+  const filteredArticles = JOURNAL_ARTICLES.filter((article) => {
+    if (filter === "all") return true;
+    return article.category === filter;
+  });
+
+  const featured = JOURNAL_ARTICLES[0];
+  const rest = filteredArticles.filter((a) => a.id !== featured.id);
+
+  return (
+    <div className="bg-obsidian min-h-screen pt-36 pb-32 px-6 md:px-12">
+      {/* Background radial highlight */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-20 right-1/4 h-[550px] w-[550px] rounded-full bg-gold/5 blur-[170px]"
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="max-w-3xl mb-14">
+          <SectionHeading
+            eyebrow="OBSIDIAN GAZETTE"
+            title="NOTES FROM THE WORLD OF CACAO"
+            subtitle="Essays, sensory dispatches, and botanical investigations into the darker dimensions of chocolate, craft, and sensory presence."
+            align="left"
+            className="mb-8"
+          />
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-white/10">
+            {categories.map((cat) => {
+              const active = filter === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`font-sans text-[10px] md:text-xs uppercase tracking-ritual px-4 py-2 rounded-sm border transition-all duration-300 focus:outline-none ${
+                    active
+                      ? "bg-espresso border-gold text-ivory shadow-gold-subtle"
+                      : "bg-charcoal/30 border-white/10 text-ash hover:border-gold/40 hover:text-champagne"
+                  }`}
+                >
+                  {cat === "all" ? "All Dispatches" : cat}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Lead Featured Article */}
+        {filter === "all" && (
+          <article
+            data-cursor-text="READ"
+            className="group mb-20 bg-charcoal/30 border border-gold/25 hover:border-gold/60 rounded-sm overflow-hidden transition-all duration-500 shadow-luxury grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+          >
+            <div className="lg:col-span-7 relative h-[360px] sm:h-[480px] w-full overflow-hidden bg-espresso-dark">
+              <Image
+                src={featured.heroImage}
+                alt={featured.title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover object-center filter brightness-[0.85] contrast-[1.1] transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent to-transparent" />
+              <span className="absolute top-6 left-6 font-sans text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-3.5 py-1.5 border border-gold/30 rounded">
+                Lead Dispatch • {featured.category}
+              </span>
+            </div>
+
+            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-ash/80 mb-4">
+                  <span>{featured.date}</span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="h-3 w-3 text-gold/60" />
+                    {featured.readTime}
+                  </span>
+                </div>
+
+                <h2 className="font-serif text-3xl sm:text-4xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
+                  <Link href={`/journal/${featured.slug}`}>
+                    {featured.title}
+                  </Link>
+                </h2>
+                <p className="font-serif italic text-base text-champagne/90 mt-2">
+                  {featured.subtitle}
+                </p>
+
+                <p className="mt-4 font-sans text-sm text-ash line-clamp-3 leading-relaxed font-light">
+                  {featured.excerpt}
+                </p>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10">
+                <Link
+                  href={`/journal/${featured.slug}`}
+                  className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-gold hover:text-champagne transition-colors"
+                >
+                  <span>Read Complete Essay</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-gold transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </div>
+          </article>
+        )}
+
+        {/* Secondary Articles Matrix */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {(filter === "all" ? rest : filteredArticles).map((article) => (
+            <article
+              key={article.id}
+              data-cursor-text="READ"
+              className="group flex flex-col justify-between bg-charcoal/30 border border-gold/15 hover:border-gold/50 rounded-sm overflow-hidden transition-all duration-500 shadow-luxury"
+            >
+              <div>
+                <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-espresso-dark">
+                  <Image
+                    src={article.heroImage}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-center filter brightness-[0.85] contrast-[1.08] transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-70" />
+                  <span className="absolute top-4 left-4 font-sans text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-3 py-1 border border-gold/25 rounded">
+                    {article.category}
+                  </span>
+                </div>
+
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-ash/80 mb-3">
+                    <span>{article.date}</span>
+                    <span>•</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3 text-gold/60" />
+                      {article.readTime}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-xl sm:text-2xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
+                    <Link href={`/journal/${article.slug}`}>
+                      {article.title}
+                    </Link>
+                  </h3>
+
+                  <p className="mt-3 font-sans text-xs sm:text-sm text-ash line-clamp-3 leading-relaxed font-light">
+                    {article.excerpt}
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-6 pb-6 md:px-8 md:pb-8 pt-2">
+                <Link
+                  href={`/journal/${article.slug}`}
+                  className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-champagne group-hover:text-gold transition-colors"
+                >
+                  <span>Read Essay</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-gold transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
