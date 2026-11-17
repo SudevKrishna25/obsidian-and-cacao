@@ -28,6 +28,9 @@ export default function CustomCursor() {
     let ringY = -100;
     let rafId: number;
 
+    let isHoveringCurrent = false;
+    let cursorTextCurrent: string | null = null;
+
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -37,17 +40,23 @@ export default function CustomCursor() {
         dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
       }
 
-      // Check if target has interactive parent or custom cursor text
+      // Check if target has interactive parent or custom cursor text without redundant re-renders
       const target = e.target as HTMLElement | null;
       if (target) {
-        const interactive = target.closest(
+        const interactive = !!target.closest(
           'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
         );
         const cursorDataEl = target.closest("[data-cursor-text]");
-        const text = cursorDataEl?.getAttribute("data-cursor-text");
+        const text = cursorDataEl?.getAttribute("data-cursor-text") || null;
 
-        setIsHovering(!!interactive);
-        setCursorText(text || null);
+        if (interactive !== isHoveringCurrent) {
+          isHoveringCurrent = interactive;
+          setIsHovering(interactive);
+        }
+        if (text !== cursorTextCurrent) {
+          cursorTextCurrent = text;
+          setCursorText(text);
+        }
       }
     };
 

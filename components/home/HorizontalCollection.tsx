@@ -22,17 +22,17 @@ export default function HorizontalCollection() {
 
     const ctx = gsap.context(() => {
       if (isDesktop) {
-        const totalWidth = track.scrollWidth - window.innerWidth;
+        const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
 
         gsap.to(track, {
-          x: -totalWidth,
+          x: () => -getDistance(),
           ease: "none",
           scrollTrigger: {
             trigger: container,
             start: "top top",
-            end: () => `+=${totalWidth}`,
+            end: () => `+=${getDistance()}`,
             pin: true,
-            scrub: 0.8,
+            scrub: 0.5,
             invalidateOnRefresh: true,
             anticipatePin: 1,
           },

@@ -70,15 +70,16 @@ export default function CraftsmanshipPinned() {
     if (!container || !pinSection) return;
 
     const isDesktop = window.innerWidth >= 1024;
+    const activeRef = { current: 0 };
 
     const ctx = gsap.context(() => {
       if (isDesktop) {
         ScrollTrigger.create({
           trigger: container,
           start: "top top",
-          end: "+=300%",
+          end: "+=120%",
           pin: pinSection,
-          scrub: true,
+          scrub: 0.5,
           anticipatePin: 1,
           onUpdate: (self) => {
             const progress = self.progress;
@@ -86,7 +87,10 @@ export default function CraftsmanshipPinned() {
               CHAPTERS.length - 1,
               Math.floor(progress * CHAPTERS.length)
             );
-            setActiveIndex(newIndex);
+            if (newIndex !== activeRef.current) {
+              activeRef.current = newIndex;
+              setActiveIndex(newIndex);
+            }
           },
         });
       }

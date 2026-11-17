@@ -29,72 +29,48 @@ export default function ChocolateTransformation() {
 
     if (!container || !pinFrame || !portal) return;
 
-    const isDesktop = window.innerWidth >= 768;
-
     const ctx = gsap.context(() => {
-      if (isDesktop) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container,
-            start: "top top",
-            end: "+=200%",
-            pin: pinFrame,
-            scrub: 0.8,
-            anticipatePin: 1,
-          },
-        });
+      // Fluid, lag-free scrubbed expansion without freezing the scroll wheel
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top 75%",
+          end: "bottom 25%",
+          scrub: 0.6,
+        },
+      });
 
-        // 1. Portal expands from small focal point to full screen
-        tl.fromTo(
-          portal,
-          { width: "50vw", height: "55vh", borderRadius: "8px", borderColor: "rgba(179, 145, 84, 0.4)" },
-          { width: "100vw", height: "100vh", borderRadius: "0px", borderColor: "rgba(179, 145, 84, 0)", ease: "power2.inOut" },
-          0
-        );
+      // 1. Portal expands smoothly
+      tl.fromTo(
+        portal,
+        { width: "80vw", borderRadius: "8px", borderColor: "rgba(179, 145, 84, 0.3)" },
+        { width: "95vw", borderRadius: "2px", borderColor: "rgba(179, 145, 84, 0.7)", ease: "power2.out" },
+        0
+      );
 
-        // 2. Image 1 scales deeper as if moving closer to physical sculpture
-        tl.fromTo(img1, { scale: 1 }, { scale: 1.35, ease: "none" }, 0);
+      // 2. Image 1 scales deeper
+      tl.fromTo(img1, { scale: 1 }, { scale: 1.15, ease: "none" }, 0);
 
-        // 3. Lighting intensifies subtly
-        tl.fromTo(glow, { opacity: 0.1, scale: 0.7 }, { opacity: 0.45, scale: 1.4, ease: "power2.out" }, 0.2);
+      // 3. Lighting intensifies subtly
+      tl.fromTo(glow, { opacity: 0.1, scale: 0.8 }, { opacity: 0.4, scale: 1.2, ease: "power2.out" }, 0.2);
 
-        // 4. Image 2 crossfades in
-        tl.fromTo(img2, { opacity: 0, scale: 1.15 }, { opacity: 0.85, scale: 1, ease: "power2.inOut" }, 0.4);
+      // 4. Image 2 crossfades in
+      tl.fromTo(img2, { opacity: 0, scale: 1.08 }, { opacity: 0.85, scale: 1, ease: "power2.out" }, 0.35);
 
-        // 5. Editorial title appears over the transformed scene
-        tl.fromTo(
-          title,
-          { opacity: 0, y: 50, letterSpacing: "0.05em" },
-          { opacity: 1, y: 0, letterSpacing: "0.15em", ease: "power3.out" },
-          0.6
-        );
+      // 5. Editorial title appears over the transformed scene
+      tl.fromTo(
+        title,
+        { opacity: 0, y: 35 },
+        { opacity: 1, y: 0, ease: "power3.out" },
+        0.5
+      );
 
-        tl.fromTo(
-          caption,
-          { opacity: 0, y: 20 },
-          { opacity: 0.9, y: 0, ease: "power2.out" },
-          0.7
-        );
-
-        // Slight hold at peak
-        tl.to({}, { duration: 0.2 });
-      } else {
-        // Mobile fallback
-        gsap.fromTo(
-          [title, caption],
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            scrollTrigger: {
-              trigger: container,
-              start: "top 70%",
-            },
-          }
-        );
-      }
+      tl.fromTo(
+        caption,
+        { opacity: 0, y: 15 },
+        { opacity: 0.95, y: 0, ease: "power2.out" },
+        0.6
+      );
     }, containerRef);
 
     return () => ctx.revert();

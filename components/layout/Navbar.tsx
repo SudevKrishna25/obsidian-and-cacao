@@ -14,8 +14,13 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
+    let isScrolled = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const nextScrolled = window.scrollY > 40;
+      if (nextScrolled !== isScrolled) {
+        isScrolled = nextScrolled;
+        setScrolled(nextScrolled);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

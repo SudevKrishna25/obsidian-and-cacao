@@ -14,8 +14,13 @@ export default function Preloader() {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion and session cache
-    if (isReducedMotion() || sessionStorage.getItem("oc_preloader_seen")) {
+    // Respect reduced motion and session cache safely
+    try {
+      if (isReducedMotion() || sessionStorage.getItem("oc_preloader_seen")) {
+        setIsDone(true);
+        return;
+      }
+    } catch {
       setIsDone(true);
       return;
     }
@@ -28,105 +33,91 @@ export default function Preloader() {
     const tagline = taglineRef.current;
     const submark = submarkRef.current;
 
+    // Guaranteed safety release so site NEVER gets stuck or blocked
+    const safetyRelease = setTimeout(() => {
+      setIsDone(true);
+    }, 1400);
+
     if (!container) return;
 
     const tl = gsap.timeline({
       onComplete: () => {
-        sessionStorage.setItem("oc_preloader_seen", "true");
+        try {
+          sessionStorage.setItem("oc_preloader_seen", "true");
+        } catch {}
         setIsDone(true);
       },
     });
 
-    // 01. Near-total blackness initial state
+    // 01. Initial setup
     gsap.set(container, { opacity: 1 });
-    gsap.set(spotlight, { scale: 0.5, opacity: 0 });
+    gsap.set(spotlight, { scale: 0.8, opacity: 0 });
     gsap.set(line, { scaleX: 0, opacity: 0 });
-    gsap.set(submark, { opacity: 0, y: 15 });
-    gsap.set(wordmark, { opacity: 0, y: 25, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" });
-    gsap.set(ampersand, { scale: 0.7, opacity: 0, rotate: -15 });
-    gsap.set(tagline, { opacity: 0, y: 10 });
+    gsap.set(submark, { opacity: 0, y: 10 });
+    gsap.set(wordmark, { opacity: 0, y: 15 });
+    gsap.set(ampersand, { scale: 0.8, opacity: 0 });
+    gsap.set(tagline, { opacity: 0, y: 8 });
 
-    // 02. Distant warm light gradually illuminates
+    // 02. Snappy luxury reveal (fast and fluid)
     tl.to(spotlight, {
-      opacity: 0.85,
-      scale: 1.2,
-      duration: 1.1,
+      opacity: 0.9,
+      scale: 1.1,
+      duration: 0.45,
       ease: "power2.out",
     })
-      // Submark reveals
       .to(
-        submark,
+        [submark, wordmark, ampersand],
         {
-          opacity: 0.8,
+          opacity: 1,
           y: 0,
-          duration: 0.6,
+          scale: 1,
+          duration: 0.45,
+          stagger: 0.08,
           ease: "power2.out",
         },
-        "-=0.5"
+        "-=0.2"
       )
-      // 03. Narrow gold line appears and extends horizontally
       .to(
         line,
         {
           opacity: 1,
           scaleX: 1,
-          duration: 0.85,
+          duration: 0.4,
           ease: "expo.out",
         },
-        "-=0.3"
+        "-=0.2"
       )
-      // 04. Obsidian & Cacao wordmark emerges through clip-path mask
-      .to(
-        wordmark,
-        {
-          opacity: 1,
-          y: 0,
-          clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
-          duration: 0.9,
-          ease: "power3.out",
-        },
-        "-=0.4"
-      )
-      // 05. Ampersand distinctive illuminated treatment
-      .to(
-        ampersand,
-        {
-          opacity: 1,
-          scale: 1,
-          rotate: 0,
-          color: "#D4B37F",
-          duration: 0.6,
-          ease: "back.out(2)",
-        },
-        "-=0.6"
-      )
-      // 06. Statement appears: "A DARKER KIND OF INDULGENCE."
       .to(
         tagline,
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
+          duration: 0.35,
           ease: "power2.out",
         },
-        "-=0.2"
+        "-=0.15"
       )
-      // Subtle hold
-      .to({}, { duration: 0.4 })
-      // 07 & 08. Curtain dissolve revealing hero
+      .to({}, { duration: 0.2 })
+      // Smooth dissolve
       .to(container, {
         opacity: 0,
-        duration: 0.85,
+        duration: 0.45,
         ease: "power2.inOut",
+        onStart: () => {
+          if (container) container.style.pointerEvents = "none";
+        },
       });
 
     return () => {
+      clearTimeout(safetyRelease);
       tl.kill();
     };
   }, []);
 
   const handleSkip = () => {
-    sessionStorage.setItem("oc_preloader_seen", "true");
+    try {
+      sessionStorage.setItem("oc_preloader_seen", "true");
+    } catch {}
     setIsDone(true);
   };
 
@@ -138,18 +129,18 @@ export default function Preloader() {
       role="dialog"
       aria-label="Welcome to Obsidian & Cacao"
       aria-modal="true"
-      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-obsidian text-ivory overflow-hidden"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-obsidian text-ivory overflow-hidden transition-opacity duration-300 pointer-events-none"
     >
-      {/* 02. Distant warm directional light */}
+      {/* Distant warm directional light */}
       <div
         ref={spotlightRef}
-        className="pointer-events-none absolute h-[400px] w-[400px] sm:h-[600px] sm:w-[600px] rounded-full bg-radial-highlight blur-[120px]"
+        className="pointer-events-none absolute h-[350px] w-[350px] sm:h-[500px] sm:w-[500px] rounded-full bg-radial-highlight blur-[100px]"
       />
 
       {/* Atmospheric Film Texture */}
-      <div className="pointer-events-none absolute inset-0 bg-grain opacity-40 mix-blend-overlay" />
+      <div className="pointer-events-none absolute inset-0 bg-grain opacity-25" />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-auto">
         {/* Subtle submark */}
         <p
           ref={submarkRef}
@@ -158,7 +149,7 @@ export default function Preloader() {
           ATELIER DE CHOCOLAT NOIR • GENÈVE
         </p>
 
-        {/* 04 & 05. Wordmark with Animated Ampersand */}
+        {/* Wordmark with Animated Ampersand */}
         <h1
           ref={wordmarkRef}
           className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.16em] sm:tracking-widest text-ivory leading-tight"
@@ -173,15 +164,15 @@ export default function Preloader() {
           CACAO
         </h1>
 
-        {/* 03. Narrow gold line expanding horizontally */}
-        <div className="relative my-4 sm:my-6 h-[1px] w-36 min-[380px]:w-48 sm:w-80 md:w-96 overflow-hidden">
+        {/* Narrow gold line */}
+        <div className="relative my-4 sm:my-5 h-[1px] w-36 min-[380px]:w-48 sm:w-80 md:w-96 overflow-hidden">
           <div
             ref={lineRef}
             className="h-full w-full origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
           />
         </div>
 
-        {/* 06. The statement */}
+        {/* Statement */}
         <p
           ref={taglineRef}
           className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-ritual text-champagne/90"
@@ -189,12 +180,12 @@ export default function Preloader() {
           A DARKER KIND OF INDULGENCE.
         </p>
 
-        {/* Skip button for immediate access */}
+        {/* Immediate access button */}
         <button
           onClick={handleSkip}
-          className="mt-10 sm:mt-14 font-sans text-[9px] uppercase tracking-widest text-ash/50 hover:text-gold transition-colors duration-300 focus:outline-none"
+          className="mt-6 sm:mt-8 font-sans text-[9px] uppercase tracking-widest text-ash/60 hover:text-gold transition-colors duration-200 focus:outline-none"
         >
-          Press to Enter
+          Enter Atelier &rarr;
         </button>
       </div>
     </div>

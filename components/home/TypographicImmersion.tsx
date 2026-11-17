@@ -33,12 +33,12 @@ export default function TypographicImmersion() {
           trigger: container,
           start: "top bottom",
           end: "bottom top",
-          scrub: 0.8,
+          scrub: 0.5,
         },
       });
 
       // Background image scales and deepens
-      tl.to(bgImg, { scale: 1.2, opacity: 0.45, ease: "none" }, 0);
+      tl.to(bgImg, { scale: 1.1, opacity: 0.4, ease: "none" }, 0);
 
       // Words move at different parallax velocities
       tl.to(wordLess, { y: -90, ease: "none" }, 0)

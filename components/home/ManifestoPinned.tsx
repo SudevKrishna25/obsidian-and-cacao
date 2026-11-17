@@ -39,66 +39,42 @@ export default function ManifestoPinned() {
     if (!container || !pinSection) return;
 
     // Only pin on screens above 768px for optimal mobile touch usability
-    const isDesktop = window.innerWidth >= 768;
-
     const ctx = gsap.context(() => {
-      if (isDesktop) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container,
-            start: "top top",
-            end: "+=180%",
-            pin: pinSection,
-            scrub: 0.8,
-            anticipatePin: 1,
-          },
-        });
+      // Fluid, lag-free scrubbed reveal across all viewports without scroll-locking
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top 70%",
+          end: "bottom 30%",
+          scrub: 0.5,
+        },
+      });
 
-        // Background subtle zoom & brightness
-        tl.to(bgImg, { scale: 1.15, filter: "brightness(0.55)", ease: "none" }, 0);
+      // Background subtle zoom & brightness
+      tl.to(bgImg, { scale: 1.1, filter: "brightness(0.55)", ease: "none" }, 0);
 
-        // Stage 1: Line 1 words entrance staggered
-        tl.fromTo(w1, { y: 60, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.05)
-          .fromTo(w2, { y: 60, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.1)
-          .fromTo(w3, { y: 60, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.15)
-          .fromTo(w4, { y: 60, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.2)
-          .fromTo(w5, { y: 60, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.25);
+      // Stage 1: Line 1 words entrance staggered
+      tl.fromTo(w1, { y: 35, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.05)
+        .fromTo(w2, { y: 35, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.1)
+        .fromTo(w3, { y: 35, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.15)
+        .fromTo(w4, { y: 35, opacity: 0 }, { y: 0, opacity: 0.4, ease: "power2.out" }, 0.2)
+        .fromTo(w5, { y: 35, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.25);
 
-        // Stage 2: Fine gold line appears
-        tl.fromTo(lineAccent, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 0.8, ease: "power2.out" }, 0.35);
+      // Stage 2: Fine gold line appears
+      tl.fromTo(lineAccent, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 0.9, ease: "power2.out" }, 0.35);
 
-        // Stage 3: Line 2 words reveal
-        tl.fromTo(w6, { y: 70, opacity: 0 }, { y: 0, opacity: 0.6, ease: "power2.out" }, 0.4)
-          .fromTo(w7, { y: 70, opacity: 0 }, { y: 0, opacity: 0.6, ease: "power2.out" }, 0.45)
-          .fromTo(
-            w8,
-            { y: 80, opacity: 0, scale: 0.95 },
-            { y: 0, opacity: 1, scale: 1, color: "#D4B37F", ease: "power3.out" },
-            0.55
-          );
-
-        // Stage 4: Supporting narrative appears
-        tl.fromTo(narrative, { opacity: 0, y: 30 }, { opacity: 1, y: 0, ease: "power2.out" }, 0.7);
-
-        // Slight hold at peak
-        tl.to({}, { duration: 0.2 });
-      } else {
-        // Mobile fallback reveal
-        gsap.fromTo(
-          [w1, w2, w3, w4, w5, lineAccent, w6, w7, w8, narrative],
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.06,
-            duration: 0.7,
-            scrollTrigger: {
-              trigger: container,
-              start: "top 75%",
-            },
-          }
+      // Stage 3: Line 2 words reveal
+      tl.fromTo(w6, { y: 40, opacity: 0 }, { y: 0, opacity: 0.6, ease: "power2.out" }, 0.4)
+        .fromTo(w7, { y: 40, opacity: 0 }, { y: 0, opacity: 0.6, ease: "power2.out" }, 0.45)
+        .fromTo(
+          w8,
+          { y: 45, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, color: "#D4B37F", ease: "power3.out" },
+          0.55
         );
-      }
+
+      // Stage 4: Supporting narrative appears
+      tl.fromTo(narrative, { opacity: 0, y: 25 }, { opacity: 1, y: 0, ease: "power2.out" }, 0.7);
     }, containerRef);
 
     return () => ctx.revert();

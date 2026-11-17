@@ -70,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${manrope.variable} ${playfair.variable} scroll-smooth`}
+      className={`${cormorant.variable} ${manrope.variable} ${playfair.variable}`}
     >
       <body className="bg-obsidian text-ivory antialiased selection:bg-cacao selection:text-ivory">
         <SmoothScroll>

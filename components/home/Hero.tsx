@@ -89,31 +89,30 @@ export default function Hero() {
           "-=0.3"
         );
 
-      // 2. Mouse interactive parallax depth on background and right showcase card
-      const handleMouseMove = (e: MouseEvent) => {
-        const xFactor = (e.clientX / window.innerWidth - 0.5) * 16;
-        const yFactor = (e.clientY / window.innerHeight - 0.5) * 16;
+      // 2. High-performance mouse parallax depth using quickTo (zero tween churn)
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      if (!isTouch) {
+        const setBgX = bgImg ? gsap.quickTo(bgImg, "x", { duration: 0.8, ease: "power2.out" }) : null;
+        const setBgY = bgImg ? gsap.quickTo(bgImg, "y", { duration: 0.8, ease: "power2.out" }) : null;
+        const setCardX = rightCard ? gsap.quickTo(rightCard, "x", { duration: 1.0, ease: "power2.out" }) : null;
+        const setCardY = rightCard ? gsap.quickTo(rightCard, "y", { duration: 1.0, ease: "power2.out" }) : null;
 
-        if (bgImg) {
-          gsap.to(bgImg, {
-            x: xFactor,
-            y: yFactor,
-            duration: 1.2,
-            ease: "power1.out",
-          });
-        }
+        const handleMouseMove = (e: MouseEvent) => {
+          const xFactor = (e.clientX / window.innerWidth - 0.5) * 14;
+          const yFactor = (e.clientY / window.innerHeight - 0.5) * 14;
 
-        if (rightCard) {
-          gsap.to(rightCard, {
-            x: -xFactor * 0.8,
-            y: -yFactor * 0.8,
-            duration: 1.4,
-            ease: "power2.out",
-          });
-        }
-      };
+          if (setBgX && setBgY) {
+            setBgX(xFactor);
+            setBgY(yFactor);
+          }
+          if (setCardX && setCardY) {
+            setCardX(-xFactor * 0.7);
+            setCardY(-yFactor * 0.7);
+          }
+        };
 
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      }
 
       // 3. SCROLL SEQUENCE A — THE HERO COLLAPSE
       const collapseTl = gsap.timeline({
@@ -121,7 +120,7 @@ export default function Hero() {
           trigger: hero,
           start: "top top",
           end: "bottom top",
-          scrub: true,
+          scrub: 0.5,
         },
       });
 

@@ -28,21 +28,19 @@ export default function EditorialGallery() {
       const items = section.querySelectorAll(".gallery-item");
 
       items.forEach((item, index) => {
-        const speed = 25 + (index % 3) * 20;
+        const speed = 20 + (index % 3) * 15;
 
         gsap.fromTo(
           item,
-          { y: speed, clipPath: "polygon(0 8%, 100% 8%, 100% 92%, 0 92%)", opacity: 0.8 },
+          { y: speed },
           {
             y: -speed * 0.5,
-            clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
-            opacity: 1,
             ease: "none",
             scrollTrigger: {
               trigger: item,
               start: "top bottom",
               end: "bottom top",
-              scrub: 0.8,
+              scrub: 0.4,
             },
           }
         );
