@@ -51,16 +51,16 @@ export default function ImageLightbox({
       <button
         onClick={onClose}
         aria-label="Close image preview"
-        className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-obsidian/80 text-ivory hover:border-gold hover:text-gold transition-colors focus:outline-none"
+        className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gold/30 bg-obsidian/90 text-ivory hover:border-gold hover:text-gold transition-colors focus:outline-none"
       >
-        <X className="h-5 w-5" />
+        <X className="h-4 w-4 sm:h-5 sm:w-5" />
       </button>
 
       <div
         className="relative max-h-[85vh] max-w-5xl w-full flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative w-full h-[60vh] md:h-[72vh] overflow-hidden rounded border border-gold/20 shadow-2xl bg-espresso-dark">
+        <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[72vh] overflow-hidden rounded border border-gold/20 shadow-2xl bg-espresso-dark">
           <Image
             src={imageSrc}
             alt={imageAlt}

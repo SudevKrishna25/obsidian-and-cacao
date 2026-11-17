@@ -58,7 +58,7 @@ export default function TypographicImmersion() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[90vh] flex flex-col justify-center items-center bg-obsidian py-24 sm:py-32 px-6 md:px-12 overflow-hidden border-t border-white/5"
+      className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center items-center bg-obsidian py-20 sm:py-28 md:py-32 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-white/5"
     >
       {/* Background Macro Photography with Differential Scaling */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -82,34 +82,34 @@ export default function TypographicImmersion() {
         </span>
 
         {/* Monumental Typographic Composition */}
-        <div className="space-y-2 sm:space-y-4">
+        <div className="space-y-2 sm:space-y-4 w-full">
           <div className="overflow-hidden">
             <span
               ref={wordLessRef}
-              className="block font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[13rem] text-ivory tracking-tight leading-[0.88] will-change-transform"
+              className="block font-serif text-5xl sm:text-8xl md:text-9xl lg:text-[13rem] text-ivory tracking-tight leading-[0.88] will-change-transform"
             >
               LESS.
             </span>
           </div>
 
           {/* Gold Hairline Divider */}
-          <div className="h-[1px] w-48 sm:w-80 md:w-[480px] mx-auto overflow-hidden my-4 sm:my-8">
+          <div className="h-[1px] w-36 min-[380px]:w-48 sm:w-80 md:w-[480px] mx-auto overflow-hidden my-3 sm:my-6 md:my-8">
             <div
               ref={goldLineRef}
               className="h-full w-full origin-center scale-x-0 opacity-0 bg-gradient-to-r from-transparent via-gold to-transparent will-change-transform"
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-6 overflow-hidden">
             <span
               ref={wordButRef}
-              className="font-serif italic font-light text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-ash will-change-transform"
+              className="font-serif italic font-light text-2xl sm:text-5xl md:text-6xl lg:text-7xl text-ash will-change-transform"
             >
               BUT
             </span>
             <span
               ref={wordExtraRef}
-              className="font-serif italic text-gold-gradient font-normal text-5xl sm:text-7xl md:text-8xl lg:text-[11rem] tracking-tight leading-[0.9] will-change-transform"
+              className="font-serif italic text-gold-gradient font-normal text-3xl min-[380px]:text-4xl min-[480px]:text-5xl sm:text-7xl md:text-8xl lg:text-[11rem] tracking-tight leading-[0.95] will-change-transform break-words"
             >
               EXTRAORDINARY.
             </span>

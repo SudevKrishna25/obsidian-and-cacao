@@ -6,7 +6,7 @@ import { Sparkles, Quote } from "lucide-react";
 
 export default function PhilosophyPage() {
   return (
-    <div className="bg-obsidian min-h-screen pt-36 pb-32 px-6 md:px-12">
+    <div className="bg-obsidian min-h-screen pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -15,29 +15,29 @@ export default function PhilosophyPage() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Page Hero */}
-        <div className="max-w-4xl mx-auto text-center mb-20 md:mb-28">
-          <div className="inline-flex items-center gap-2 mb-4">
+        <div className="max-w-4xl mx-auto text-center mb-14 sm:mb-20 md:mb-28">
+          <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
             <Sparkles className="h-3 w-3 text-gold" />
-            <span className="font-sans text-[10px] md:text-xs uppercase tracking-ritual text-gold font-medium">
+            <span className="font-sans text-[9px] sm:text-[10px] md:text-xs uppercase tracking-ritual text-gold font-medium">
               THE OBSIDIAN CANON
             </span>
             <Sparkles className="h-3 w-3 text-gold" />
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl text-ivory tracking-tight leading-[1.05]">
+          <h1 className="font-serif text-3xl min-[380px]:text-4xl sm:text-6xl md:text-7xl text-ivory tracking-tight leading-[1.05]">
             THE BEAUTY OF{" "}
             <span className="font-serif italic text-gold-gradient font-normal block sm:inline">
               RESTRAINT.
             </span>
           </h1>
 
-          <p className="mt-8 font-serif text-lg sm:text-2xl italic text-champagne leading-relaxed">
+          <p className="mt-5 sm:mt-8 font-serif text-base sm:text-2xl italic text-champagne leading-relaxed px-2">
             &ldquo;In a culture governed by excess, luxury is not the addition of embellishment; it is the courage to strip away everything non-essential until only truth remains.&rdquo;
           </p>
         </div>
 
         {/* Hero Image Manifesto Banner */}
-        <div className="relative h-[360px] sm:h-[500px] w-full overflow-hidden rounded-sm border border-gold/25 bg-espresso shadow-luxury mb-24">
+        <div className="relative h-[260px] min-[390px]:h-[320px] sm:h-[500px] w-full overflow-hidden rounded-sm border border-gold/25 bg-espresso shadow-luxury mb-16 sm:mb-24">
           <Image
             src="/images/product-noir.jpg"
             alt="Dark chocolate blocks on black marble"
@@ -47,18 +47,18 @@ export default function PhilosophyPage() {
             className="object-cover object-center filter brightness-[0.7] contrast-[1.15]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent" />
-          <div className="absolute bottom-8 left-8 right-8 flex flex-col sm:flex-row sm:items-end sm:justify-between text-xs text-ivory">
-            <span className="font-serif text-lg text-champagne">
+          <div className="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 flex flex-col sm:flex-row sm:items-end sm:justify-between text-xs text-ivory gap-1">
+            <span className="font-serif text-base sm:text-lg text-champagne">
               Atelier Principle Nº 01
             </span>
-            <span className="font-sans text-[10px] uppercase tracking-ritual text-ash">
+            <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-ash">
               Darkness, Refined • MMXXV
             </span>
           </div>
         </div>
 
         {/* Four Deep Philosophical Pillars */}
-        <div className="space-y-24 max-w-5xl mx-auto">
+        <div className="space-y-12 sm:space-y-20 md:space-y-24 max-w-5xl mx-auto">
           {/* Pillar 1 */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-white/10 pt-12">
             <div className="md:col-span-3">

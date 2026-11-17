@@ -145,7 +145,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[100vh] flex flex-col justify-between overflow-hidden bg-obsidian pt-28 pb-10 px-6 md:px-12"
+      className="relative min-h-[100vh] flex flex-col justify-between overflow-hidden bg-obsidian pt-24 sm:pt-28 pb-8 sm:pb-10 px-4 sm:px-6 md:px-12"
       aria-label="Obsidian & Cacao Hero"
     >
       {/* Background Architectural Macro Chocolate Image */}
@@ -202,14 +202,14 @@ export default function Hero() {
             </div>
 
             {/* Monumental Typography */}
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-tight text-ivory leading-[0.96]">
+            <h1 className="font-serif text-[2.5rem] min-[390px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-tight text-ivory leading-[0.96]">
               <span ref={titleLine1Ref} className="block will-change-transform">
                 OBSIDIAN
               </span>
-              <div className="flex items-center gap-3 my-1 sm:my-2">
+              <div className="flex items-center gap-2 sm:gap-3 my-1 sm:my-2">
                 <span
                   ref={titleAmpRef}
-                  className="font-serif italic text-gold font-normal text-3xl sm:text-5xl md:text-6xl lg:text-8xl will-change-transform"
+                  className="font-serif italic text-gold font-normal text-2xl min-[390px]:text-4xl sm:text-5xl md:text-6xl lg:text-8xl will-change-transform"
                 >
                   &amp;
                 </span>
@@ -223,11 +223,11 @@ export default function Hero() {
             </h1>
 
             {/* Main Statement & Supporting text */}
-            <div ref={statementRef} className="mt-5 md:mt-7 will-change-transform max-w-xl">
-              <h2 className="font-serif text-xl sm:text-2xl md:text-3xl text-ivory/95 tracking-wide italic font-light">
+            <div ref={statementRef} className="mt-4 sm:mt-6 md:mt-7 will-change-transform max-w-xl">
+              <h2 className="font-serif text-lg min-[390px]:text-xl sm:text-2xl md:text-3xl text-ivory/95 tracking-wide italic font-light">
                 &ldquo;AN OBSESSION WITH DARKNESS.&rdquo;
               </h2>
-              <p className="mt-3 font-sans text-xs sm:text-sm md:text-base text-ash leading-relaxed font-light">
+              <p className="mt-2.5 sm:mt-3 font-sans text-xs sm:text-sm md:text-base text-ash leading-relaxed font-light">
                 The extraordinary art of cacao, reimagined through the language of refinement. Savor pure unadulterated botanical depth and patient stone conching.
               </p>
             </div>
@@ -235,13 +235,13 @@ export default function Hero() {
             {/* CTA actions */}
             <div
               ref={ctaRef}
-              className="mt-7 md:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 will-change-transform"
+              className="mt-6 sm:mt-8 md:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-6 will-change-transform w-full sm:w-auto"
             >
-              <MagneticButton href="/collection" variant="primary" size="lg">
+              <MagneticButton href="/collection" variant="primary" size="lg" className="w-full sm:w-auto text-center justify-center">
                 EXPLORE THE COLLECTION
               </MagneticButton>
-              <MagneticButton href="/atelier" variant="secondary" size="lg" icon={false}>
-                <span className="flex items-center gap-2">
+              <MagneticButton href="/atelier" variant="secondary" size="lg" icon={false} className="w-full sm:w-auto text-center justify-center">
+                <span className="flex items-center justify-center gap-2">
                   <Compass className="h-3.5 w-3.5 text-gold/80" />
                   <span>ENTER THE ATELIER</span>
                 </span>
@@ -252,9 +252,9 @@ export default function Hero() {
           {/* Right Column: Architectural Luxury Focal Showcase (Fills the Free Space!) */}
           <div
             ref={rightShowcaseRef}
-            className="col-span-12 lg:col-span-5 will-change-transform"
+            className="col-span-12 lg:col-span-5 will-change-transform mt-6 lg:mt-0"
           >
-            <div className="relative group p-6 sm:p-8 rounded-sm bg-charcoal/40 border border-gold/30 backdrop-blur-md shadow-luxury hover:border-gold/60 transition-all duration-500 overflow-hidden">
+            <div className="relative group p-4 sm:p-7 md:p-8 rounded-sm bg-charcoal/40 border border-gold/30 backdrop-blur-md shadow-luxury hover:border-gold/60 transition-all duration-500 overflow-hidden">
               {/* Corner Antique Gold Flourishes */}
               <div className="absolute top-2 left-2 h-3 w-3 border-t border-l border-gold/60 pointer-events-none" />
               <div className="absolute top-2 right-2 h-3 w-3 border-t border-r border-gold/60 pointer-events-none" />
@@ -262,20 +262,20 @@ export default function Hero() {
               <div className="absolute bottom-2 right-2 h-3 w-3 border-b border-r border-gold/60 pointer-events-none" />
 
               {/* Header inside showcase */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 text-xs">
+              <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 text-xs">
                 <div className="flex items-center gap-2">
                   <Award className="h-3.5 w-3.5 text-gold" />
-                  <span className="font-sans text-[9px] uppercase tracking-ritual text-gold font-medium">
+                  <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-ritual text-gold font-medium">
                     ATELIER SIGNATURE SPECIMEN
                   </span>
                 </div>
-                <span className="font-sans text-[9px] uppercase tracking-widest text-ash">
+                <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-widest text-ash">
                   Nº 01 / 480
                 </span>
               </div>
 
               {/* Showcase Image Frame */}
-              <div className="relative h-60 sm:h-72 w-full my-5 overflow-hidden rounded bg-espresso-dark border border-gold/20">
+              <div className="relative h-48 sm:h-64 md:h-72 w-full my-4 sm:my-5 overflow-hidden rounded bg-espresso-dark border border-gold/20">
                 <Image
                   src="/images/hero-specimen.jpg"
                   alt="Obsidian & Cacao Signature Obscura 92% Specimen"
@@ -286,22 +286,22 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-75" />
 
                 {/* Floating Wax Seal Watermark */}
-                <div className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-espresso/90 border border-gold/50 shadow-gold-subtle text-[8px] font-serif text-champagne text-center leading-none">
+                <div className="absolute top-3 right-3 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-espresso/90 border border-gold/50 shadow-gold-subtle text-[8px] font-serif text-champagne text-center leading-none">
                   92%<br />PURE
                 </div>
 
                 {/* Terroir Badge */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between bg-obsidian/90 backdrop-blur-sm px-3 py-1.5 border border-gold/20 rounded text-[9px] font-sans text-ash uppercase tracking-wider">
-                  <span>Alto Huallaga River Valley</span>
-                  <span className="text-gold font-medium">Harvest 2025</span>
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between bg-obsidian/90 backdrop-blur-sm px-2.5 sm:px-3 py-1.5 border border-gold/20 rounded text-[8px] sm:text-[9px] font-sans text-ash uppercase tracking-wider">
+                  <span className="truncate">Alto Huallaga Valley</span>
+                  <span className="text-gold font-medium flex-none ml-2">Harvest 2025</span>
                 </div>
               </div>
 
               {/* Product Info & Direct Exploration Link */}
-              <div className="pt-2">
+              <div className="pt-1 sm:pt-2">
                 <div className="flex items-baseline justify-between">
                   <div>
-                    <h3 className="font-serif text-2xl text-ivory tracking-wide group-hover:text-gold transition-colors">
+                    <h3 className="font-serif text-xl sm:text-2xl text-ivory tracking-wide group-hover:text-gold transition-colors">
                       OBSCURA 92%
                     </h3>
                     <p className="font-serif italic text-xs text-champagne">
@@ -318,11 +318,11 @@ export default function Hero() {
                 </div>
 
                 {/* Tasting Notes Chips */}
-                <div className="mt-4 flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
+                <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
                   {["Black Mission Fig", "Smoked Cedar", "Mineral Earth", "Dark Soil"].map((note, idx) => (
                     <span
                       key={idx}
-                      className="text-[9px] font-sans uppercase tracking-wider text-champagne/90 bg-obsidian/80 px-2 py-0.5 rounded border border-white/5"
+                      className="text-[8px] sm:text-[9px] font-sans uppercase tracking-wider text-champagne/90 bg-obsidian/80 px-2 py-0.5 rounded border border-white/5"
                     >
                       {note}
                     </span>
@@ -335,21 +335,21 @@ export default function Hero() {
       </div>
 
       {/* Bottom Bar: Metrics & Continuous Discreet Scroll Indicator */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-5 border-t border-white/10">
-        <div className="flex items-center space-x-6 sm:space-x-10 text-xs text-ash">
+      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 sm:gap-6 pt-4 sm:pt-5 border-t border-white/10">
+        <div className="grid grid-cols-3 sm:flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-0 sm:space-x-8 md:space-x-10 text-xs text-ash text-center sm:text-left">
           <div>
-            <span className="block font-serif text-lg md:text-xl text-ivory">92%</span>
-            <span className="font-sans text-[9px] uppercase tracking-widest text-ash/80">Alto Huallaga</span>
+            <span className="block font-serif text-base sm:text-lg md:text-xl text-ivory">92%</span>
+            <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-widest text-ash/80">Alto Huallaga</span>
           </div>
-          <div className="h-6 w-[1px] bg-white/10" />
+          <div className="hidden sm:block h-6 w-[1px] bg-white/10" />
           <div>
-            <span className="block font-serif text-lg md:text-xl text-ivory">96h</span>
-            <span className="font-sans text-[9px] uppercase tracking-widest text-ash/80">Stone Conched</span>
+            <span className="block font-serif text-base sm:text-lg md:text-xl text-ivory">96h</span>
+            <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-widest text-ash/80">Stone Conched</span>
           </div>
-          <div className="h-6 w-[1px] bg-white/10" />
+          <div className="hidden sm:block h-6 w-[1px] bg-white/10" />
           <div>
-            <span className="block font-serif text-lg md:text-xl text-ivory">Form V</span>
-            <span className="font-sans text-[9px] uppercase tracking-widest text-ash/80">Beta Crystal</span>
+            <span className="block font-serif text-base sm:text-lg md:text-xl text-ivory">Form V</span>
+            <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-widest text-ash/80">Beta Crystal</span>
           </div>
         </div>
 

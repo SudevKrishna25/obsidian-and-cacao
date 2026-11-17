@@ -85,13 +85,13 @@ export default function ManifestoPinned() {
       } else {
         // Mobile fallback reveal
         gsap.fromTo(
-          [w1, w2, w3, w4, w5, w6, w7, w8, narrative],
-          { opacity: 0, y: 30 },
+          [w1, w2, w3, w4, w5, lineAccent, w6, w7, w8, narrative],
+          { opacity: 0, y: 25 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.08,
-            duration: 0.8,
+            stagger: 0.06,
+            duration: 0.7,
             scrollTrigger: {
               trigger: container,
               start: "top 75%",
@@ -112,7 +112,7 @@ export default function ManifestoPinned() {
     >
       <section
         ref={pinSectionRef}
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-24"
+        className="relative min-h-[90vh] sm:min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-24"
       >
         {/* Cinematic Backdrop with low-key lighting */}
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -132,7 +132,7 @@ export default function ManifestoPinned() {
         {/* Center Editorial Manifesto Presentation */}
         <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
           {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-6 sm:mb-8">
             <span className="h-[1px] w-8 bg-gold/60" />
             <span className="font-sans text-[10px] sm:text-xs uppercase tracking-ritual text-gold font-medium">
               THE OBSIDIAN MANIFESTO
@@ -141,28 +141,28 @@ export default function ManifestoPinned() {
           </div>
 
           {/* Monumental Pinned Typography Reveal */}
-          <div className="space-y-2 sm:space-y-4">
+          <div className="space-y-2 sm:space-y-4 w-full">
             {/* Line 1 */}
-            <div className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-none overflow-hidden">
-              <span ref={word1Ref} className="inline-block mx-1.5 sm:mx-3 text-ash">
+            <div className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-tight flex flex-wrap items-center justify-center">
+              <span ref={word1Ref} className="inline-block mx-1 sm:mx-3 text-ash">
                 NOT
               </span>
-              <span ref={word2Ref} className="inline-block mx-1.5 sm:mx-3 text-ivory">
+              <span ref={word2Ref} className="inline-block mx-1 sm:mx-3 text-ivory">
                 MADE
               </span>
-              <span ref={word3Ref} className="inline-block mx-1.5 sm:mx-3 text-ash font-light">
+              <span ref={word3Ref} className="inline-block mx-1 sm:mx-3 text-ash font-light">
                 TO
               </span>
-              <span ref={word4Ref} className="inline-block mx-1.5 sm:mx-3 text-ash font-light">
+              <span ref={word4Ref} className="inline-block mx-1 sm:mx-3 text-ash font-light">
                 BE
               </span>
-              <span ref={word5Ref} className="inline-block mx-1.5 sm:mx-3 text-ivory italic">
+              <span ref={word5Ref} className="inline-block mx-1 sm:mx-3 text-ivory italic">
                 RUSHED.
               </span>
             </div>
 
             {/* Fine gold expanding line */}
-            <div className="my-4 sm:my-6 h-[1px] w-48 sm:w-80 md:w-96 mx-auto overflow-hidden">
+            <div className="my-3 sm:my-6 h-[1px] w-36 min-[380px]:w-48 sm:w-80 md:w-96 mx-auto overflow-hidden">
               <div
                 ref={lineAccentRef}
                 className="h-full w-full bg-gradient-to-r from-transparent via-gold to-transparent origin-center"
@@ -170,16 +170,16 @@ export default function ManifestoPinned() {
             </div>
 
             {/* Line 2 */}
-            <div className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-none overflow-hidden">
-              <span ref={word6Ref} className="inline-block mx-1.5 sm:mx-3 text-champagne/80 font-light">
+            <div className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-tight flex flex-wrap items-center justify-center">
+              <span ref={word6Ref} className="inline-block mx-1 sm:mx-3 text-champagne/80 font-light">
                 MADE
               </span>
-              <span ref={word7Ref} className="inline-block mx-1.5 sm:mx-3 text-ash font-light">
+              <span ref={word7Ref} className="inline-block mx-1 sm:mx-3 text-ash font-light">
                 TO BE
               </span>
               <span
                 ref={word8Ref}
-                className="inline-block mx-1.5 sm:mx-3 text-gold-gradient font-normal italic"
+                className="inline-block mx-1 sm:mx-3 text-gold-gradient font-normal italic"
               >
                 REMEMBERED.
               </span>
@@ -189,7 +189,7 @@ export default function ManifestoPinned() {
           {/* Supporting Philosophy Narrative */}
           <div
             ref={narrativeRef}
-            className="mt-10 sm:mt-14 max-w-2xl mx-auto text-ash font-sans text-xs sm:text-base leading-relaxed font-light"
+            className="mt-8 sm:mt-14 max-w-2xl mx-auto text-ash font-sans text-xs sm:text-base leading-relaxed font-light px-2"
           >
             <p>
               Obsidian &amp; Cacao is built upon absolute botanical restraint. We work exclusively with ancient wild-harvested cacao, stone-conched for up to ninety-six hours on granite melangeurs.

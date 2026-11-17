@@ -72,12 +72,12 @@ export default function AudioAtmosphere() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center">
       <button
         onClick={toggleSound}
         aria-label={isPlaying ? "Mute ambient sanctuary audio" : "Play ambient sanctuary audio"}
         title={isPlaying ? "Silence Atmosphere" : "Awaken Sanctuary Atmosphere"}
-        className="group flex items-center gap-2.5 rounded-full border border-gold/30 bg-obsidian/90 px-3.5 py-2 text-ivory/80 shadow-luxury backdrop-blur-md transition-all duration-300 hover:border-gold hover:text-gold focus:outline-none focus:ring-1 focus:ring-gold"
+        className="group flex items-center gap-2 sm:gap-2.5 rounded-full border border-gold/30 bg-obsidian/95 p-2.5 sm:px-3.5 sm:py-2 text-ivory/80 shadow-luxury backdrop-blur-md transition-all duration-300 hover:border-gold hover:text-gold focus:outline-none focus:ring-1 focus:ring-gold"
       >
         {isPlaying ? (
           <>

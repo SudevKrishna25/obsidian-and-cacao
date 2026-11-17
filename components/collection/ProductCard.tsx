@@ -27,7 +27,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         </div>
 
         {/* Product Image */}
-        <div className="relative h-[340px] sm:h-[400px] w-full overflow-hidden bg-espresso-dark">
+        <div className="relative h-[280px] min-[390px]:h-[320px] sm:h-[400px] w-full overflow-hidden bg-espresso-dark">
           <Image
             src={product.heroImage}
             alt={`${product.name} — ${product.subtitle}`}
@@ -38,33 +38,33 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-75" />
 
           {/* Terroir & Vintage Tag */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[10px] uppercase tracking-wider text-ash bg-obsidian/90 backdrop-blur-sm px-3.5 py-1.5 border border-gold/20 rounded">
+          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-between text-[9px] sm:text-[10px] uppercase tracking-wider text-ash bg-obsidian/90 backdrop-blur-sm px-3 py-1.5 border border-gold/20 rounded">
             <span className="truncate">{product.origin}</span>
-            <span className="text-gold font-medium">{product.vintage}</span>
+            <span className="text-gold font-medium ml-2 flex-none">{product.vintage}</span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6 md:p-8">
+        <div className="p-4 sm:p-6 md:p-8">
           <div className="flex items-baseline justify-between gap-2">
-            <h3 className="font-serif text-2xl md:text-3xl text-ivory tracking-wide group-hover:text-gold transition-colors">
+            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-ivory tracking-wide group-hover:text-gold transition-colors">
               <Link href={`/collection/${product.slug}`}>{product.name}</Link>
             </h3>
-            <span className="font-sans text-[10px] uppercase tracking-widest text-ash">
+            <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-widest text-ash">
               {product.subtitle}
             </span>
           </div>
 
-          <p className="mt-3 font-sans text-xs sm:text-sm text-ash line-clamp-2 leading-relaxed font-light">
+          <p className="mt-2.5 sm:mt-3 font-sans text-xs sm:text-sm text-ash line-clamp-2 leading-relaxed font-light">
             {product.description}
           </p>
 
           {/* Tasting notes chips */}
-          <div className="mt-4 flex flex-wrap gap-1.5">
+          <div className="mt-3.5 sm:mt-4 flex flex-wrap gap-1.5">
             {product.tastingNotes.slice(0, 3).map((note, idx) => (
               <span
                 key={idx}
-                className="inline-block text-[9px] uppercase tracking-wider text-champagne bg-obsidian px-2.5 py-1 rounded-sm border border-white/5"
+                className="inline-block text-[8px] sm:text-[9px] uppercase tracking-wider text-champagne bg-obsidian px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-sm border border-white/5"
               >
                 {note}
               </span>
@@ -74,7 +74,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       </div>
 
       {/* Bottom Action */}
-      <div className="p-6 md:p-8 pt-0 border-t border-white/5 flex items-center justify-between mt-4">
+      <div className="p-4 sm:p-6 md:p-8 pt-0 border-t border-white/5 flex items-center justify-between mt-3 sm:mt-4">
         <span className="font-sans text-[10px] uppercase tracking-ritual text-ash/80">
           {product.priceNote}
         </span>

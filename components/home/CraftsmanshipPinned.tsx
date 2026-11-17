@@ -204,47 +204,71 @@ export default function CraftsmanshipPinned() {
       </section>
 
       {/* Mobile Stacked Storytelling Layout (Clean & Touch-friendly) */}
-      <section className="lg:hidden px-6 py-20 space-y-16">
-        <div className="border-b border-white/10 pb-4">
-          <span className="font-sans text-[10px] uppercase tracking-ritual text-gold">
+      <section className="lg:hidden px-4 sm:px-6 py-16 sm:py-20 space-y-12">
+        <div className="border-b border-white/10 pb-5">
+          <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-gold">
             THE ART OF CRAFT
           </span>
-          <h2 className="font-serif text-2xl text-ivory mt-1">
+          <h2 className="font-serif text-2xl sm:text-3xl text-ivory mt-1 leading-snug">
             THE ART IS IN WHAT YOU CANNOT SEE.
           </h2>
+          <p className="mt-2 font-sans text-xs text-ash leading-relaxed">
+            From wild canopy harvest to manual Form V crystallization, our four-stage discipline of perfection.
+          </p>
         </div>
 
-        {CHAPTERS.map((ch) => (
-          <article
-            key={ch.step}
-            className="p-6 bg-charcoal/30 border border-gold/20 rounded-sm space-y-6"
-          >
-            <div className="relative h-64 w-full overflow-hidden rounded bg-espresso">
-              <Image
-                src={ch.image}
-                alt={ch.title}
-                fill
-                sizes="100vw"
-                className="object-cover object-center filter brightness-[0.85] contrast-[1.1]"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 text-gold">
-                <span className="font-serif text-2xl">{ch.roman}</span>
-                <span className="font-sans text-[9px] uppercase tracking-ritual">
-                  CHAPTER {ch.step}
-                </span>
+        <div className="space-y-8">
+          {CHAPTERS.map((ch) => (
+            <article
+              key={ch.step}
+              className="relative p-5 sm:p-7 bg-charcoal/30 border border-gold/25 rounded-sm space-y-5 shadow-luxury"
+            >
+              {/* Corner Gold Accent */}
+              <div className="absolute top-2 left-2 h-2.5 w-2.5 border-t border-l border-gold/50 pointer-events-none" />
+              <div className="absolute top-2 right-2 h-2.5 w-2.5 border-t border-r border-gold/50 pointer-events-none" />
+
+              <div className="relative h-52 sm:h-64 w-full overflow-hidden rounded bg-espresso">
+                <Image
+                  src={ch.image}
+                  alt={ch.title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center filter brightness-[0.85] contrast-[1.1]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 bg-obsidian/90 backdrop-blur-sm px-2.5 py-1 border border-gold/20 rounded text-[9px] font-sans text-champagne uppercase tracking-wider">
+                  Stage {ch.step} of 04
+                </div>
               </div>
-              <h3 className="font-serif text-2xl text-ivory mt-1">{ch.title}</h3>
-              <p className="font-serif italic text-sm text-champagne mt-1">
-                &ldquo;{ch.tagline}&rdquo;
-              </p>
-              <p className="mt-4 font-sans text-xs text-ash leading-relaxed">
-                {ch.narrative}
-              </p>
-            </div>
-          </article>
-        ))}
+
+              <div>
+                <div className="flex items-center gap-2 text-gold">
+                  <span className="font-serif text-2xl">{ch.roman}</span>
+                  <span className="h-[1px] w-4 bg-gold/40" />
+                  <span className="font-sans text-[9px] uppercase tracking-ritual">
+                    CHAPTER {ch.step}
+                  </span>
+                </div>
+                <h3 className="font-serif text-xl sm:text-2xl text-ivory mt-1">{ch.title}</h3>
+                <p className="font-serif italic text-xs sm:text-sm text-champagne mt-1">
+                  &ldquo;{ch.tagline}&rdquo;
+                </p>
+                <p className="mt-3 font-sans text-xs text-ash leading-relaxed font-light">
+                  {ch.narrative}
+                </p>
+
+                <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs">
+                  <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-ritual text-gold">
+                    Disciplinary Standard
+                  </span>
+                  <span className="font-serif text-xs text-ivory font-light">
+                    {ch.spec}
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
   );

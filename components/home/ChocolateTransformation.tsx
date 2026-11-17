@@ -81,12 +81,13 @@ export default function ChocolateTransformation() {
       } else {
         // Mobile fallback
         gsap.fromTo(
-          title,
-          { opacity: 0, y: 30 },
+          [title, caption],
+          { opacity: 0, y: 25 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.9,
+            duration: 0.8,
+            stagger: 0.15,
             scrollTrigger: {
               trigger: container,
               start: "top 70%",
@@ -103,13 +104,12 @@ export default function ChocolateTransformation() {
     <div ref={containerRef} className="relative bg-obsidian text-ivory">
       <section
         ref={pinFrameRef}
-        className="relative h-screen flex flex-col items-center justify-center overflow-hidden"
+        className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-3 sm:px-0"
       >
         {/* Expanding Visual Portal Frame */}
         <div
           ref={visualPortalRef}
-          className="relative overflow-hidden border border-gold/40 shadow-2xl bg-espresso-dark will-change-transform flex items-center justify-center"
-          style={{ width: "85vw", height: "65vh" }}
+          className="relative overflow-hidden border border-gold/40 shadow-2xl bg-espresso-dark will-change-transform flex items-center justify-center w-[92vw] sm:w-[85vw] h-[60vh] sm:h-[65vh] rounded-sm"
         >
           {/* Layer 1: Macro Chocolate Texture */}
           <div ref={img1Ref} className="absolute inset-0 z-0 will-change-transform">
@@ -142,10 +142,10 @@ export default function ChocolateTransformation() {
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-obsidian/60" />
 
           {/* Overlaid Editorial Title */}
-          <div className="relative z-10 text-center px-6 max-w-4xl">
-            <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl">
+            <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
               <Sparkles className="h-3.5 w-3.5 text-gold" />
-              <span className="font-sans text-[10px] md:text-xs uppercase tracking-ritual text-gold">
+              <span className="font-sans text-[9px] sm:text-[10px] md:text-xs uppercase tracking-ritual text-gold">
                 THE GEOLOGY OF CACAO
               </span>
               <Sparkles className="h-3.5 w-3.5 text-gold" />
@@ -153,7 +153,7 @@ export default function ChocolateTransformation() {
 
             <h2
               ref={titleRef}
-              className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-ivory tracking-wide leading-tight drop-shadow-2xl"
+              className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-ivory tracking-wide leading-tight drop-shadow-2xl"
             >
               CRAFTED IN{" "}
               <span className="font-serif italic text-gold-gradient font-normal">
@@ -163,7 +163,7 @@ export default function ChocolateTransformation() {
 
             <p
               ref={captionRef}
-              className="mt-6 font-sans text-xs md:text-sm uppercase tracking-ritual text-champagne/90 max-w-xl mx-auto"
+              className="mt-4 sm:mt-6 font-sans text-xs md:text-sm uppercase tracking-ritual text-champagne/90 max-w-xl mx-auto leading-relaxed"
             >
               An intimate study in Form V crystalline perfection and slow granite friction.
             </p>

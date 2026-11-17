@@ -62,7 +62,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-obsidian min-h-screen pt-36 pb-32 px-6 md:px-12">
+    <div className="bg-obsidian min-h-screen pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -70,7 +70,7 @@ export default function ContactPage() {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           {/* Left Column: Concierge Info & Etiquette */}
           <div className="lg:col-span-5">
             <SectionHeading
@@ -78,12 +78,12 @@ export default function ContactPage() {
               title="A DIALOGUE IN SHADOW."
               subtitle="Whether reserving a private atelier degustation, inquiring about seasonal vintage allocations, or commissioning a bespoke private curation, our concierge is at your service."
               align="left"
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             />
 
             {/* Atelier Protocols */}
-            <div className="space-y-6 pt-6 border-t border-white/10 text-xs font-sans text-ash">
-              <div className="flex items-start gap-4 p-4 bg-charcoal/20 border border-gold/15 rounded">
+            <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-6 border-t border-white/10 text-xs font-sans text-ash">
+              <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-charcoal/20 border border-gold/15 rounded">
                 <MapPin className="h-4 w-4 text-gold flex-none mt-0.5" />
                 <div>
                   <span className="font-serif text-sm text-ivory block">
@@ -92,13 +92,13 @@ export default function ContactPage() {
                   <p className="mt-1 text-ash">
                     Rue du Rhône, 1204 Genève, Switzerland
                   </p>
-                  <p className="text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
                     Concept Atelier Studio • By Private Appointment
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 bg-charcoal/20 border border-gold/15 rounded">
+              <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-charcoal/20 border border-gold/15 rounded">
                 <Mail className="h-4 w-4 text-gold flex-none mt-0.5" />
                 <div>
                   <span className="font-serif text-sm text-ivory block">
@@ -107,13 +107,13 @@ export default function ContactPage() {
                   <p className="mt-1 text-ash">
                     concierge@obsidiancacao.com
                   </p>
-                  <p className="text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
                     Direct Sommelier &amp; Curation Desk
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 bg-charcoal/20 border border-gold/15 rounded">
+              <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-charcoal/20 border border-gold/15 rounded">
                 <Clock className="h-4 w-4 text-gold flex-none mt-0.5" />
                 <div>
                   <span className="font-serif text-sm text-ivory block">
@@ -122,21 +122,21 @@ export default function ContactPage() {
                   <p className="mt-1 text-ash">
                     Monday to Saturday • 10:00 — 19:00 CET
                   </p>
-                  <p className="text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-ritual text-champagne/80 mt-1">
                     Discrete response guaranteed within 24 hours
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 flex items-center gap-2 text-[10px] uppercase tracking-widest text-ash/60">
-              <Shield className="h-3.5 w-3.5 text-gold/60" />
+            <div className="mt-6 sm:mt-8 flex items-center gap-2 text-[9px] sm:text-[10px] uppercase tracking-widest text-ash/60">
+              <Shield className="h-3.5 w-3.5 text-gold/60 flex-none" />
               <span>All private communications are handled with strict confidentiality.</span>
             </div>
           </div>
 
           {/* Right Column: Private Enquiry Form */}
-          <div className="lg:col-span-7 bg-charcoal/30 border border-gold/25 p-8 sm:p-12 rounded-sm shadow-luxury">
+          <div className="lg:col-span-7 bg-charcoal/30 border border-gold/25 p-5 sm:p-8 md:p-12 rounded-sm shadow-luxury">
             {status === "success" ? (
               <div className="text-center py-12">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-espresso border border-gold mx-auto mb-6">

@@ -31,7 +31,7 @@ export default function SensoryNotes({
   ];
 
   return (
-    <div className="bg-charcoal/30 border border-gold/20 p-6 md:p-8 rounded-sm shadow-luxury">
+    <div className="bg-charcoal/30 border border-gold/20 p-5 sm:p-6 md:p-8 rounded-sm shadow-luxury">
       <div className="flex items-center gap-2 mb-6">
         <Sparkles className="h-4 w-4 text-gold" />
         <h4 className="font-sans text-[10px] uppercase tracking-ritual text-gold font-medium">

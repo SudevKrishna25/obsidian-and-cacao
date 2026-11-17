@@ -29,7 +29,7 @@ export default function JournalArticlePage({
   const related = JOURNAL_ARTICLES.filter((a) => article.relatedSlugs.includes(a.slug));
 
   return (
-    <article className="bg-obsidian min-h-screen pt-32 pb-32 px-6 md:px-12">
+    <article className="bg-obsidian min-h-screen pt-28 sm:pt-32 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -38,7 +38,7 @@ export default function JournalArticlePage({
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Navigation Breadcrumb */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link
             href="/journal"
             className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-ash hover:text-gold transition-colors"
@@ -49,24 +49,24 @@ export default function JournalArticlePage({
         </div>
 
         {/* Article Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
             <span className="h-[1px] w-6 bg-gold/60" />
-            <span className="font-sans text-[10px] uppercase tracking-ritual text-gold font-medium">
+            <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-gold font-medium">
               {article.category}
             </span>
             <span className="h-[1px] w-6 bg-gold/60" />
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-ivory tracking-tight leading-[1.1]">
+          <h1 className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl text-ivory tracking-tight leading-[1.1]">
             {article.title}
           </h1>
 
-          <p className="mt-4 font-serif italic text-lg sm:text-xl text-champagne max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 font-serif italic text-base sm:text-xl text-champagne max-w-2xl mx-auto">
             {article.subtitle}
           </p>
 
-          <div className="mt-6 flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-ash">
+          <div className="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[9px] sm:text-[10px] uppercase tracking-widest text-ash">
             <span>By {article.author}</span>
             <span>•</span>
             <span>{article.date}</span>
@@ -79,7 +79,7 @@ export default function JournalArticlePage({
         </div>
 
         {/* Hero Image */}
-        <div className="relative h-[360px] sm:h-[500px] w-full overflow-hidden rounded-sm border border-gold/25 bg-espresso shadow-luxury mb-14">
+        <div className="relative h-[240px] min-[390px]:h-[300px] sm:h-[500px] w-full overflow-hidden rounded-sm border border-gold/25 bg-espresso shadow-luxury mb-10 sm:mb-14">
           <Image
             src={article.heroImage}
             alt={article.title}
@@ -94,7 +94,7 @@ export default function JournalArticlePage({
         {/* Article Body Content */}
         <div className="prose prose-invert max-w-none">
           {/* Lead Paragraph */}
-          <p className="font-serif text-xl sm:text-2xl text-ivory leading-relaxed font-light mb-10 pb-8 border-b border-white/10">
+          <p className="font-serif text-lg sm:text-2xl text-ivory leading-relaxed font-light mb-8 sm:mb-10 pb-6 sm:pb-8 border-b border-white/10">
             {article.leadParagraph}
           </p>
 

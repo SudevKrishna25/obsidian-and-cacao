@@ -37,17 +37,17 @@ export default function Navbar() {
             : "bg-transparent py-6 md:py-8 border-b border-white/5"
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
           {/* Brand Wordmark */}
           <Link
             href="/"
             className="group flex flex-col focus:outline-none"
             aria-label="Obsidian and Cacao Home"
           >
-            <span className="font-serif text-lg md:text-2xl tracking-[0.22em] text-ivory group-hover:text-gold transition-colors duration-300">
+            <span className="font-serif text-base sm:text-lg md:text-2xl tracking-[0.16em] sm:tracking-[0.22em] text-ivory group-hover:text-gold transition-colors duration-300">
               OBSIDIAN <span className="font-serif italic text-gold font-normal">&amp;</span> CACAO
             </span>
-            <span className="font-sans text-[8px] md:text-[9px] uppercase tracking-ritual text-ash/80 group-hover:text-champagne transition-colors duration-300">
+            <span className="font-sans text-[7.5px] sm:text-[8px] md:text-[9px] uppercase tracking-ritual text-ash/80 group-hover:text-champagne transition-colors duration-300">
               ATELIER DE CHOCOLAT NOIR
             </span>
           </Link>

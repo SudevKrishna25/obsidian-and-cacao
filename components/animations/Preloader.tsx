@@ -149,11 +149,11 @@ export default function Preloader() {
       {/* Atmospheric Film Texture */}
       <div className="pointer-events-none absolute inset-0 bg-grain opacity-40 mix-blend-overlay" />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6">
         {/* Subtle submark */}
         <p
           ref={submarkRef}
-          className="font-sans text-[9px] md:text-xs uppercase tracking-ritual text-gold/80 mb-4"
+          className="font-sans text-[8px] sm:text-[9px] md:text-xs uppercase tracking-ritual text-gold/80 mb-3 sm:mb-4"
         >
           ATELIER DE CHOCOLAT NOIR • GENÈVE
         </p>
@@ -161,7 +161,7 @@ export default function Preloader() {
         {/* 04 & 05. Wordmark with Animated Ampersand */}
         <h1
           ref={wordmarkRef}
-          className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-widest text-ivory leading-tight"
+          className="font-serif text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.16em] sm:tracking-widest text-ivory leading-tight"
         >
           OBSIDIAN{" "}
           <span
@@ -174,7 +174,7 @@ export default function Preloader() {
         </h1>
 
         {/* 03. Narrow gold line expanding horizontally */}
-        <div className="relative my-6 h-[1px] w-48 sm:w-80 md:w-96 overflow-hidden">
+        <div className="relative my-4 sm:my-6 h-[1px] w-36 min-[380px]:w-48 sm:w-80 md:w-96 overflow-hidden">
           <div
             ref={lineRef}
             className="h-full w-full origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
@@ -184,7 +184,7 @@ export default function Preloader() {
         {/* 06. The statement */}
         <p
           ref={taglineRef}
-          className="font-sans text-xs md:text-sm uppercase tracking-ritual text-champagne/90"
+          className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-ritual text-champagne/90"
         >
           A DARKER KIND OF INDULGENCE.
         </p>
@@ -192,7 +192,7 @@ export default function Preloader() {
         {/* Skip button for immediate access */}
         <button
           onClick={handleSkip}
-          className="mt-14 font-sans text-[9px] uppercase tracking-widest text-ash/50 hover:text-gold transition-colors duration-300 focus:outline-none"
+          className="mt-10 sm:mt-14 font-sans text-[9px] uppercase tracking-widest text-ash/50 hover:text-gold transition-colors duration-300 focus:outline-none"
         >
           Press to Enter
         </button>

@@ -33,10 +33,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       role="dialog"
       aria-modal="true"
       aria-label="Navigation Menu"
-      className="fixed inset-0 z-[100] flex flex-col bg-obsidian-deep/98 backdrop-blur-xl px-8 py-10 transition-all duration-500 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex flex-col bg-obsidian-deep/98 backdrop-blur-xl px-6 sm:px-8 py-8 sm:py-10 transition-all duration-500 overflow-y-auto"
     >
       {/* Header inside overlay */}
-      <div className="flex items-center justify-between border-b border-gold/15 pb-6">
+      <div className="flex items-center justify-between border-b border-gold/15 pb-5 sm:pb-6">
         <div>
           <span className="font-serif text-lg tracking-[0.2em] text-ivory">
             OBSIDIAN <span className="font-serif italic text-gold font-normal">&amp;</span> CACAO
@@ -55,7 +55,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </div>
 
       {/* Nav Links */}
-      <nav className="my-auto py-12 flex flex-col space-y-6" aria-label="Mobile Navigation Links">
+      <nav className="my-6 sm:my-auto py-6 sm:py-12 flex flex-col space-y-5 sm:space-y-6" aria-label="Mobile Navigation Links">
         {NAV_ITEMS.map((item, index) => {
           const isActive = pathname === item.href;
           return (
@@ -64,15 +64,15 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               href={item.href}
               onClick={onClose}
               className={cn(
-                "group flex items-baseline justify-between border-b border-white/5 pb-4 transition-all duration-300",
+                "group flex items-baseline justify-between border-b border-white/5 pb-3.5 sm:pb-4 transition-all duration-300",
                 isActive ? "text-gold" : "text-ivory hover:text-champagne"
               )}
             >
               <div>
-                <span className="text-[10px] font-sans text-ash/60 tracking-widest mr-4">
+                <span className="text-[10px] font-sans text-ash/60 tracking-widest mr-3 sm:mr-4">
                   0{index + 1}
                 </span>
-                <span className="font-serif text-2xl tracking-wide">
+                <span className="font-serif text-xl sm:text-2xl tracking-wide">
                   {item.label}
                 </span>
               </div>
@@ -83,7 +83,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </nav>
 
       {/* Bottom Footer Info */}
-      <div className="pt-6 border-t border-gold/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs">
+      <div className="pt-5 sm:pt-6 border-t border-gold/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs mt-auto">
         <div>
           <p className="font-sans text-[9px] uppercase tracking-ritual text-ash">
             Private Atelier Enquiries

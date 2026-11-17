@@ -16,7 +16,7 @@ export default function CollectionPage() {
   });
 
   return (
-    <div className="bg-obsidian min-h-screen pt-36 pb-32 px-6 md:px-12">
+    <div className="bg-obsidian min-h-screen pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -25,13 +25,13 @@ export default function CollectionPage() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Page Header */}
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-12 sm:mb-16">
           <SectionHeading
             eyebrow="THE COLLECTION"
             title="THE EDITIONS DE CACAO"
             subtitle="Each tablet and confection represents an uncompromising study in single-origin genetics, 96-hour stone conching, and crystalline precision. Hand-cast in numbered micro-batches."
             align="left"
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           />
 
           {/* Filter Navigation */}
@@ -40,14 +40,14 @@ export default function CollectionPage() {
               { id: "all", label: "All Creations" },
               { id: "pure-dark", label: "Pure Dark (85% — 100%)" },
               { id: "confection", label: "Silken & Enrobed (78%)" },
-              { id: "speciality", label: "Truffes & Pure Botanical" },
+              { id: "speciality", label: "Truffes & Botanical" },
             ].map((tab) => {
               const active = filter === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setFilter(tab.id as typeof filter)}
-                  className={`font-sans text-[10px] md:text-xs uppercase tracking-ritual px-4 py-2 rounded-sm border transition-all duration-300 focus:outline-none ${
+                  className={`font-sans text-[10px] md:text-xs uppercase tracking-ritual px-3.5 sm:px-4 py-2 rounded-sm border transition-all duration-300 focus:outline-none ${
                     active
                       ? "bg-espresso border-gold text-ivory shadow-gold-subtle"
                       : "bg-charcoal/30 border-white/10 text-ash hover:border-gold/40 hover:text-champagne"
@@ -61,25 +61,25 @@ export default function CollectionPage() {
         </div>
 
         {/* Products Matrix */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} index={idx} />
           ))}
         </div>
 
         {/* Editorial Footnote */}
-        <div className="mt-24 p-8 md:p-12 border border-gold/20 bg-charcoal/20 rounded-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-16 sm:mt-24 p-5 sm:p-8 md:p-12 border border-gold/20 bg-charcoal/20 rounded-sm flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div>
             <h4 className="font-serif text-xl md:text-2xl text-ivory">
               Seeking a Bespoke Atelier Tasting?
             </h4>
-            <p className="font-sans text-xs sm:text-sm text-ash mt-1 max-w-xl">
+            <p className="font-sans text-xs sm:text-sm text-ash mt-1 max-w-xl font-light">
               Our master chocolatiers curate private cellar allocations for collectors, sommeliers, and private residences.
             </p>
           </div>
           <a
             href="/contact"
-            className="flex-none font-sans text-xs uppercase tracking-ritual border border-gold px-6 py-3 text-champagne hover:text-ivory hover:bg-gold/15 transition-all"
+            className="w-full sm:w-auto text-center flex-none font-sans text-xs uppercase tracking-ritual border border-gold px-6 py-3 text-champagne hover:text-ivory hover:bg-gold/15 transition-all rounded-sm"
           >
             Inquire With Concierge
           </a>

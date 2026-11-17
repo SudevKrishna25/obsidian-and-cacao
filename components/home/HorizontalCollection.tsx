@@ -154,26 +154,26 @@ export default function HorizontalCollection() {
       </div>
 
       {/* Mobile Vertical Exhibition Presentation (Touch-Friendly) */}
-      <div className="lg:hidden px-6 py-20 space-y-12">
-        <div className="border-b border-white/10 pb-6">
-          <span className="font-sans text-[10px] uppercase tracking-ritual text-gold">
+      <div className="lg:hidden px-4 sm:px-6 py-16 sm:py-20 space-y-10">
+        <div className="border-b border-white/10 pb-5">
+          <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-gold">
             THE PORTFOLIO
           </span>
-          <h2 className="font-serif text-3xl text-ivory mt-1">
+          <h2 className="font-serif text-2xl sm:text-3xl text-ivory mt-1">
             THE COLLECTION.
           </h2>
-          <p className="mt-3 font-sans text-xs text-ash leading-relaxed">
-            Traverse our six signature creations. Each tablet represents an unyielding study in ancestral terroir.
+          <p className="mt-2 font-sans text-xs text-ash leading-relaxed">
+            Traverse our six signature creations. Each tablet represents an unyielding study in ancestral terroir and granite stone conching.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {PRODUCTS.map((product, idx) => (
             <article
               key={product.id}
-              className="bg-charcoal/30 border border-gold/20 rounded-sm p-6 space-y-4 shadow-luxury"
+              className="bg-charcoal/30 border border-gold/25 rounded-sm p-4 sm:p-6 space-y-4 shadow-luxury"
             >
-              <div className="flex items-center justify-between text-xs border-b border-white/5 pb-2">
+              <div className="flex items-center justify-between text-xs border-b border-white/5 pb-2.5">
                 <span className="font-sans text-[9px] uppercase tracking-ritual text-gold">
                   EDITION Nº 0{idx + 1}
                 </span>
@@ -182,7 +182,7 @@ export default function HorizontalCollection() {
                 </span>
               </div>
 
-              <div className="relative h-60 w-full overflow-hidden rounded bg-espresso">
+              <div className="relative h-52 sm:h-64 w-full overflow-hidden rounded bg-espresso">
                 <Image
                   src={product.heroImage}
                   alt={product.name}
@@ -190,14 +190,19 @@ export default function HorizontalCollection() {
                   sizes="100vw"
                   className="object-cover object-center filter brightness-[0.88] contrast-[1.1]"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-transparent to-transparent" />
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[8px] sm:text-[9px] uppercase tracking-wider text-ash bg-obsidian/90 backdrop-blur-sm px-2.5 py-1 border border-gold/20 rounded">
+                  <span className="truncate">{product.origin}</span>
+                  <span className="text-gold font-medium ml-2">{product.vintage}</span>
+                </div>
               </div>
 
               <div>
-                <h3 className="font-serif text-2xl text-ivory">{product.name}</h3>
-                <span className="font-sans text-[10px] uppercase tracking-widest text-ash block mt-0.5">
+                <h3 className="font-serif text-xl sm:text-2xl text-ivory">{product.name}</h3>
+                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-widest text-ash block mt-0.5">
                   {product.subtitle}
                 </span>
-                <p className="mt-2 font-sans text-xs text-ash line-clamp-2">
+                <p className="mt-2 font-sans text-xs text-ash line-clamp-2 leading-relaxed">
                   {product.tagline}
                 </p>
               </div>
@@ -208,14 +213,25 @@ export default function HorizontalCollection() {
                 </span>
                 <Link
                   href={`/collection/${product.slug}`}
-                  className="inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-ritual text-gold"
+                  className="inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-ritual text-gold hover:text-champagne transition-colors"
                 >
-                  <span>Explore</span>
+                  <span>Explore Piece</span>
                   <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
             </article>
           ))}
+        </div>
+
+        {/* View All Button on Mobile */}
+        <div className="pt-4 text-center">
+          <Link
+            href="/collection"
+            className="inline-flex items-center justify-center gap-2.5 w-full border border-gold/40 bg-espresso/50 py-3.5 px-6 font-sans text-xs uppercase tracking-ritual text-ivory hover:border-gold hover:bg-gold/15 transition-all rounded-sm"
+          >
+            <span>View Full 6 Editions Catalogue</span>
+            <ArrowRight className="h-3.5 w-3.5 text-gold" />
+          </Link>
         </div>
       </div>
     </div>

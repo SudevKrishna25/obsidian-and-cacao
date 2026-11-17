@@ -21,7 +21,7 @@ export default function JournalPage() {
   const rest = filteredArticles.filter((a) => a.id !== featured.id);
 
   return (
-    <div className="bg-obsidian min-h-screen pt-36 pb-32 px-6 md:px-12">
+    <div className="bg-obsidian min-h-screen pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -30,13 +30,13 @@ export default function JournalPage() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="max-w-3xl mb-14">
+        <div className="max-w-3xl mb-10 sm:mb-14">
           <SectionHeading
             eyebrow="OBSIDIAN GAZETTE"
             title="NOTES FROM THE WORLD OF CACAO"
             subtitle="Essays, sensory dispatches, and botanical investigations into the darker dimensions of chocolate, craft, and sensory presence."
             align="left"
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           />
 
           {/* Category Tabs */}
@@ -47,7 +47,7 @@ export default function JournalPage() {
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`font-sans text-[10px] md:text-xs uppercase tracking-ritual px-4 py-2 rounded-sm border transition-all duration-300 focus:outline-none ${
+                  className={`font-sans text-[10px] md:text-xs uppercase tracking-ritual px-3.5 sm:px-4 py-2 rounded-sm border transition-all duration-300 focus:outline-none ${
                     active
                       ? "bg-espresso border-gold text-ivory shadow-gold-subtle"
                       : "bg-charcoal/30 border-white/10 text-ash hover:border-gold/40 hover:text-champagne"
@@ -64,9 +64,9 @@ export default function JournalPage() {
         {filter === "all" && (
           <article
             data-cursor-text="READ"
-            className="group mb-20 bg-charcoal/30 border border-gold/25 hover:border-gold/60 rounded-sm overflow-hidden transition-all duration-500 shadow-luxury grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+            className="group mb-14 sm:mb-20 bg-charcoal/30 border border-gold/25 hover:border-gold/60 rounded-sm overflow-hidden transition-all duration-500 shadow-luxury grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center"
           >
-            <div className="lg:col-span-7 relative h-[360px] sm:h-[480px] w-full overflow-hidden bg-espresso-dark">
+            <div className="lg:col-span-7 relative h-[260px] min-[390px]:h-[320px] sm:h-[480px] w-full overflow-hidden bg-espresso-dark">
               <Image
                 src={featured.heroImage}
                 alt={featured.title}
@@ -76,14 +76,14 @@ export default function JournalPage() {
                 className="object-cover object-center filter brightness-[0.85] contrast-[1.1] transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent to-transparent" />
-              <span className="absolute top-6 left-6 font-sans text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-3.5 py-1.5 border border-gold/30 rounded">
+              <span className="absolute top-4 left-4 sm:top-6 sm:left-6 font-sans text-[8px] sm:text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-3 sm:px-3.5 py-1.5 border border-gold/30 rounded">
                 Lead Dispatch • {featured.category}
               </span>
             </div>
 
-            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between">
+            <div className="lg:col-span-5 p-5 sm:p-8 lg:p-10 flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-ash/80 mb-4">
+                <div className="flex items-center gap-2.5 text-[9px] sm:text-[10px] uppercase tracking-widest text-ash/80 mb-3 sm:mb-4">
                   <span>{featured.date}</span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
@@ -92,21 +92,21 @@ export default function JournalPage() {
                   </span>
                 </div>
 
-                <h2 className="font-serif text-3xl sm:text-4xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
                   <Link href={`/journal/${featured.slug}`}>
                     {featured.title}
                   </Link>
                 </h2>
-                <p className="font-serif italic text-base text-champagne/90 mt-2">
+                <p className="font-serif italic text-sm sm:text-base text-champagne/90 mt-1.5 sm:mt-2">
                   {featured.subtitle}
                 </p>
 
-                <p className="mt-4 font-sans text-sm text-ash line-clamp-3 leading-relaxed font-light">
+                <p className="mt-3 sm:mt-4 font-sans text-xs sm:text-sm text-ash line-clamp-3 leading-relaxed font-light">
                   {featured.excerpt}
                 </p>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10">
+              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10">
                 <Link
                   href={`/journal/${featured.slug}`}
                   className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-gold hover:text-champagne transition-colors"
@@ -120,7 +120,7 @@ export default function JournalPage() {
         )}
 
         {/* Secondary Articles Matrix */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {(filter === "all" ? rest : filteredArticles).map((article) => (
             <article
               key={article.id}
@@ -128,7 +128,7 @@ export default function JournalPage() {
               className="group flex flex-col justify-between bg-charcoal/30 border border-gold/15 hover:border-gold/50 rounded-sm overflow-hidden transition-all duration-500 shadow-luxury"
             >
               <div>
-                <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-espresso-dark">
+                <div className="relative h-48 sm:h-64 md:h-72 w-full overflow-hidden bg-espresso-dark">
                   <Image
                     src={article.heroImage}
                     alt={article.title}
@@ -137,13 +137,13 @@ export default function JournalPage() {
                     className="object-cover object-center filter brightness-[0.85] contrast-[1.08] transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-70" />
-                  <span className="absolute top-4 left-4 font-sans text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-3 py-1 border border-gold/25 rounded">
+                  <span className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 font-sans text-[8px] sm:text-[9px] uppercase tracking-ritual text-champagne bg-obsidian/90 backdrop-blur-sm px-2.5 sm:px-3 py-1 border border-gold/25 rounded">
                     {article.category}
                   </span>
                 </div>
 
-                <div className="p-6 md:p-8">
-                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-ash/80 mb-3">
+                <div className="p-4 sm:p-6 md:p-8">
+                  <div className="flex items-center gap-2.5 text-[9px] sm:text-[10px] uppercase tracking-widest text-ash/80 mb-2 sm:mb-3">
                     <span>{article.date}</span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
@@ -152,19 +152,19 @@ export default function JournalPage() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-xl sm:text-2xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
+                  <h3 className="font-serif text-lg sm:text-xl md:text-2xl text-ivory tracking-wide group-hover:text-gold transition-colors leading-snug">
                     <Link href={`/journal/${article.slug}`}>
                       {article.title}
                     </Link>
                   </h3>
 
-                  <p className="mt-3 font-sans text-xs sm:text-sm text-ash line-clamp-3 leading-relaxed font-light">
+                  <p className="mt-2 sm:mt-3 font-sans text-xs sm:text-sm text-ash line-clamp-3 leading-relaxed font-light">
                     {article.excerpt}
                   </p>
                 </div>
               </div>
 
-              <div className="px-6 pb-6 md:px-8 md:pb-8 pt-2">
+              <div className="px-4 pb-4 sm:px-6 sm:pb-6 md:px-8 md:pb-8 pt-2">
                 <Link
                   href={`/journal/${article.slug}`}
                   className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-champagne group-hover:text-gold transition-colors"

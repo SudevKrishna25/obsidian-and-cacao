@@ -27,7 +27,7 @@ export default function ProductDetailPage({
   const relatedProducts = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   return (
-    <div className="bg-obsidian min-h-screen pt-32 pb-32 px-6 md:px-12">
+    <div className="bg-obsidian min-h-screen pt-28 sm:pt-32 pb-20 sm:pb-32 px-4 sm:px-6 md:px-12">
       {/* Background radial highlight */}
       <div
         aria-hidden="true"
@@ -36,7 +36,7 @@ export default function ProductDetailPage({
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Navigation Breadcrumb */}
-        <div className="mb-10 flex items-center justify-between">
+        <div className="mb-8 sm:mb-10 flex items-center justify-between">
           <Link
             href="/collection"
             className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-ritual text-ash hover:text-gold transition-colors"
@@ -44,16 +44,16 @@ export default function ProductDetailPage({
             <ArrowLeft className="h-3.5 w-3.5 text-gold" />
             <span>Return to Collection</span>
           </Link>
-          <span className="font-sans text-[10px] uppercase tracking-ritual text-gold/80">
+          <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-gold/80">
             {product.edition}
           </span>
         </div>
 
         {/* Top Product Hero Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-16 sm:mb-24">
           {/* Left Column: Visual Gallery of Product */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="relative h-[420px] sm:h-[560px] w-full overflow-hidden rounded-sm border border-gold/30 bg-espresso-dark shadow-luxury">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div className="relative h-[320px] min-[390px]:h-[400px] sm:h-[560px] w-full overflow-hidden rounded-sm border border-gold/30 bg-espresso-dark shadow-luxury">
               <Image
                 src={product.heroImage}
                 alt={`${product.name} — ${product.subtitle}`}
@@ -65,19 +65,19 @@ export default function ProductDetailPage({
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent to-transparent opacity-80" />
 
               {/* Watermark badge */}
-              <div className="absolute top-6 left-6 bg-obsidian/90 backdrop-blur-md px-4 py-2 border border-gold/30 rounded text-xs">
-                <span className="font-serif text-gold text-lg mr-2 font-light">
+              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-obsidian/90 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 border border-gold/30 rounded text-xs">
+                <span className="font-serif text-gold text-base sm:text-lg mr-2 font-light">
                   {product.cacaoPercentage}%
                 </span>
-                <span className="font-sans text-[9px] uppercase tracking-ritual text-ivory">
+                <span className="font-sans text-[8px] sm:text-[9px] uppercase tracking-ritual text-ivory">
                   CACAO NOIR
                 </span>
               </div>
             </div>
 
             {/* Secondary Macro Details Row */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative h-44 sm:h-56 w-full overflow-hidden rounded border border-white/10 bg-charcoal">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="relative h-32 min-[390px]:h-40 sm:h-56 w-full overflow-hidden rounded border border-white/10 bg-charcoal">
                 <Image
                   src={product.secondaryImage}
                   alt="Texture close up"
@@ -85,11 +85,11 @@ export default function ProductDetailPage({
                   sizes="30vw"
                   className="object-cover object-center filter brightness-[0.85] contrast-[1.15]"
                 />
-                <span className="absolute bottom-2 left-2 text-[9px] font-sans uppercase tracking-widest text-ash/80 bg-obsidian/80 px-2 py-0.5 rounded">
+                <span className="absolute bottom-2 left-2 text-[8px] sm:text-[9px] font-sans uppercase tracking-widest text-ash/80 bg-obsidian/80 px-2 py-0.5 rounded">
                   Tempered Fracture
                 </span>
               </div>
-              <div className="relative h-44 sm:h-56 w-full overflow-hidden rounded border border-white/10 bg-charcoal">
+              <div className="relative h-32 min-[390px]:h-40 sm:h-56 w-full overflow-hidden rounded border border-white/10 bg-charcoal">
                 <Image
                   src={product.detailImage}
                   alt="Raw ingredient details"
@@ -97,7 +97,7 @@ export default function ProductDetailPage({
                   sizes="30vw"
                   className="object-cover object-center filter brightness-[0.85] contrast-[1.15]"
                 />
-                <span className="absolute bottom-2 left-2 text-[9px] font-sans uppercase tracking-widest text-ash/80 bg-obsidian/80 px-2 py-0.5 rounded">
+                <span className="absolute bottom-2 left-2 text-[8px] sm:text-[9px] font-sans uppercase tracking-widest text-ash/80 bg-obsidian/80 px-2 py-0.5 rounded">
                   Terroir Specimen
                 </span>
               </div>
@@ -108,28 +108,28 @@ export default function ProductDetailPage({
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               {/* Eyebrow */}
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-2 sm:mb-3">
                 <Sparkles className="h-3 w-3 text-gold" />
-                <span className="font-sans text-[10px] uppercase tracking-ritual text-gold font-medium">
+                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-ritual text-gold font-medium">
                   {product.edition} • {product.origin}
                 </span>
               </div>
 
               {/* Product Title */}
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-ivory tracking-tight leading-none">
+              <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-ivory tracking-tight leading-tight">
                 {product.name}
               </h1>
-              <p className="font-serif italic text-xl text-champagne mt-2 font-normal">
+              <p className="font-serif italic text-lg sm:text-xl text-champagne mt-1.5 sm:mt-2 font-normal">
                 {product.subtitle}
               </p>
 
               {/* Tagline */}
-              <p className="mt-4 font-sans text-xs uppercase tracking-ritual text-ash">
+              <p className="mt-3 sm:mt-4 font-sans text-xs uppercase tracking-ritual text-ash">
                 &ldquo;{product.tagline}&rdquo;
               </p>
 
               {/* Gold divider */}
-              <div className="my-6 h-[1px] w-full bg-gradient-to-r from-gold/40 via-gold/10 to-transparent" />
+              <div className="my-5 sm:my-6 h-[1px] w-full bg-gradient-to-r from-gold/40 via-gold/10 to-transparent" />
 
               {/* Description */}
               <p className="font-sans text-sm sm:text-base text-ash leading-relaxed font-light">
@@ -137,15 +137,15 @@ export default function ProductDetailPage({
               </p>
 
               {/* Sommelier & Tasting Ritual Box */}
-              <div className="mt-8 bg-charcoal/40 border border-gold/15 p-6 rounded-sm">
+              <div className="mt-6 sm:mt-8 bg-charcoal/40 border border-gold/15 p-4 sm:p-6 rounded-sm">
                 <div className="flex items-center gap-2 text-xs font-sans text-gold uppercase tracking-ritual mb-3">
-                  <Wine className="h-4 w-4 text-gold" />
+                  <Wine className="h-4 w-4 text-gold flex-none" />
                   <span>Curated Pairings &amp; Sommelier Notes</span>
                 </div>
                 <ul className="space-y-2 font-sans text-xs text-ivory/80 font-light">
                   {product.pairingSuggestions.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-2">
-                      <span className="h-1 w-1 rounded-full bg-gold" />
+                      <span className="h-1 w-1 rounded-full bg-gold flex-none" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -153,19 +153,19 @@ export default function ProductDetailPage({
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <GoldButton href="/contact" variant="primary" size="lg" className="w-full sm:w-auto">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <GoldButton href="/contact" variant="primary" size="lg" className="w-full sm:w-auto text-center justify-center">
                   Request Atelier Allocation
                 </GoldButton>
-                <GoldButton href="/atelier" variant="secondary" size="lg" icon={false} className="w-full sm:w-auto">
-                  <span className="flex items-center gap-2">
+                <GoldButton href="/atelier" variant="secondary" size="lg" icon={false} className="w-full sm:w-auto text-center justify-center">
+                  <span className="flex items-center justify-center gap-2">
                     <Compass className="h-3.5 w-3.5 text-gold/80" />
                     <span>The Craft Story</span>
                   </span>
                 </GoldButton>
               </div>
 
-              <p className="mt-4 font-sans text-[10px] uppercase tracking-widest text-ash/60">
+              <p className="mt-3.5 sm:mt-4 font-sans text-[9px] sm:text-[10px] uppercase tracking-widest text-ash/60">
                 {product.priceNote} • Direct allocation via Private Concierge
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Sensory Profile & Craftsmanship Specifications */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-28">
           <div className="lg:col-span-7">
             <SensoryNotes
               scores={product.sensoryScores}
@@ -183,12 +183,12 @@ export default function ProductDetailPage({
           </div>
 
           {/* Technical Specifications */}
-          <div className="lg:col-span-5 bg-charcoal/30 border border-gold/20 p-6 md:p-8 rounded-sm">
-            <h4 className="font-sans text-[10px] uppercase tracking-ritual text-gold mb-6 font-medium">
+          <div className="lg:col-span-5 bg-charcoal/30 border border-gold/20 p-5 sm:p-6 md:p-8 rounded-sm">
+            <h4 className="font-sans text-[10px] uppercase tracking-ritual text-gold mb-5 sm:mb-6 font-medium">
               Atelier Technical Specifications
             </h4>
 
-            <div className="space-y-4 text-xs font-sans">
+            <div className="space-y-3 sm:space-y-4 text-xs font-sans">
               <div className="flex justify-between py-2 border-b border-white/5">
                 <span className="text-ash">Terroir &amp; Origin</span>
                 <span className="text-ivory text-right">{product.origin}</span>
@@ -216,7 +216,7 @@ export default function ProductDetailPage({
             </div>
 
             {/* Standards Checklist */}
-            <div className="mt-6 pt-4 border-t border-white/10 space-y-2">
+            <div className="mt-5 sm:mt-6 pt-4 border-t border-white/10 space-y-2">
               {product.craftNotes.map((note, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-[11px] text-ash">
                   <Check className="h-3 w-3 text-gold mt-0.5 flex-none" />
@@ -225,22 +225,22 @@ export default function ProductDetailPage({
               ))}
             </div>
 
-            <p className="mt-6 font-sans text-[9px] uppercase tracking-wider text-ash/60 pt-4 border-t border-white/5">
+            <p className="mt-5 sm:mt-6 font-sans text-[8px] sm:text-[9px] uppercase tracking-wider text-ash/60 pt-4 border-t border-white/5">
               *Technical metrics and sensory profiles reflect creative atelier concept curation.
             </p>
           </div>
         </div>
 
         {/* Botanical Narrative Story */}
-        <div className="mb-28 p-8 md:p-14 bg-espresso/20 border border-gold/25 rounded-sm">
+        <div className="mb-16 sm:mb-28 p-6 sm:p-8 md:p-14 bg-espresso/20 border border-gold/25 rounded-sm">
           <div className="max-w-3xl mx-auto text-center">
             <span className="font-sans text-[10px] uppercase tracking-ritual text-gold">
               Origin Chronicles
             </span>
-            <h3 className="font-serif text-2xl sm:text-4xl text-ivory mt-3">
+            <h3 className="font-serif text-2xl sm:text-4xl text-ivory mt-2 sm:mt-3">
               The Genesis of {product.name}
             </h3>
-            <p className="mt-6 font-sans text-sm md:text-base text-ash leading-relaxed font-light">
+            <p className="mt-4 sm:mt-6 font-sans text-sm md:text-base text-ash leading-relaxed font-light">
               {product.story}
             </p>
           </div>
