@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
-    // Check if user prefers reduced motion
+    // Respect reduced motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    // Detect touch device for optimal touch fluidity
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 0.85,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -23,6 +24,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       touchMultiplier: 1.0,
       syncTouch: false,
     });
+    lenisRef.current = lenis;
 
     // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
@@ -32,27 +34,43 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
 
     gsap.ticker.add(updateTicker);
-    // Use healthy lag smoothing (500ms max lag, 33ms target) to eliminate micro-stutters
-    gsap.ticker.lagSmoothing(500, 33);
 
-    // Refresh ScrollTrigger once fonts and layout compute
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 400);
+    // CRITICAL: Disable GSAP lag smoothing so GSAP and Lenis never drop or lag frames behind
+    gsap.ticker.lagSmoothing(0);
 
     const handleResize = () => {
       ScrollTrigger.refresh();
     };
     window.addEventListener("resize", handleResize, { passive: true });
 
+    // Initial refresh after assets settle
+    const initTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
     return () => {
-      clearTimeout(refreshTimer);
+      clearTimeout(initTimer);
       window.removeEventListener("resize", handleResize);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      lenisRef.current = null;
     };
   }, []);
+
+  // When pathname changes (route navigation), immediately reset scroll to top and refresh ScrollTrigger
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+    window.scrollTo(0, 0);
+
+    // Refresh ScrollTrigger once the new page DOM is mounted
+    const routeTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => clearTimeout(routeTimer);
+  }, [pathname]);
 
   return <>{children}</>;
 }

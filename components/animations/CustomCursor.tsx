@@ -26,21 +26,54 @@ export default function CustomCursor() {
     let mouseY = -100;
     let ringX = -100;
     let ringY = -100;
-    let rafId: number;
+    let rafId: number | null = null;
+    let isVisibleLocal = false;
 
     let isHoveringCurrent = false;
     let cursorTextCurrent: string | null = null;
 
+    const loop = () => {
+      const ease = 0.2;
+      const dx = mouseX - ringX;
+      const dy = mouseY - ringY;
+      ringX += dx * ease;
+      ringY += dy * ease;
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
+      }
+
+      // If close enough and mouse stopped, sleep RAF
+      if (Math.abs(dx) < 0.2 && Math.abs(dy) < 0.2) {
+        rafId = null;
+        return;
+      }
+
+      rafId = requestAnimationFrame(loop);
+    };
+
+    const wakeLoop = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!isVisible) setIsVisible(true);
+
+      if (!isVisibleLocal) {
+        isVisibleLocal = true;
+        setIsVisible(true);
+      }
 
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
       }
 
-      // Check if target has interactive parent or custom cursor text without redundant re-renders
+      wakeLoop();
+
+      // Check for hover state on interactive targets
       const target = e.target as HTMLElement | null;
       if (target) {
         const interactive = !!target.closest(
@@ -61,39 +94,30 @@ export default function CustomCursor() {
     };
 
     const onMouseLeave = () => {
+      isVisibleLocal = false;
       setIsVisible(false);
     };
 
     const onMouseEnter = () => {
+      isVisibleLocal = true;
       setIsVisible(true);
+      wakeLoop();
     };
 
-    const animateRing = () => {
-      // Smooth lerp for ring follower
-      const ease = 0.18;
-      ringX += (mouseX - ringX) * ease;
-      ringY += (mouseY - ringY) * ease;
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
-      }
-
-      rafId = requestAnimationFrame(animateRing);
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", onMouseLeave);
-    document.addEventListener("mouseenter", onMouseEnter);
-    rafId = requestAnimationFrame(animateRing);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", onMouseEnter, { passive: true });
 
     return () => {
       document.body.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
-      cancelAnimationFrame(rafId);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
-  }, [isVisible]);
+  }, []);
 
   if (isTouch) return null;
 
@@ -103,7 +127,7 @@ export default function CustomCursor() {
       <div
         ref={dotRef}
         aria-hidden="true"
-        className={`pointer-events-none fixed top-0 left-0 z-[9999] -ml-1 -mt-1 h-2 w-2 rounded-full bg-gold transition-opacity duration-300 ${
+        className={`pointer-events-none fixed top-0 left-0 z-[9999] -ml-1 -mt-1 h-2 w-2 rounded-full bg-gold transition-opacity duration-200 ${
           isVisible ? "opacity-90" : "opacity-0"
         } ${cursorText ? "scale-0" : "scale-100"}`}
         style={{ willChange: "transform" }}

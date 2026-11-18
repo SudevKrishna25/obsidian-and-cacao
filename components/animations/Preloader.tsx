@@ -14,13 +14,8 @@ export default function Preloader() {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion and session cache safely
-    try {
-      if (isReducedMotion() || sessionStorage.getItem("oc_preloader_seen")) {
-        setIsDone(true);
-        return;
-      }
-    } catch {
+    // Respect reduced motion
+    if (isReducedMotion()) {
       setIsDone(true);
       return;
     }
@@ -33,18 +28,15 @@ export default function Preloader() {
     const tagline = taglineRef.current;
     const submark = submarkRef.current;
 
-    // Guaranteed safety release so site NEVER gets stuck or blocked
+    // Guaranteed fail-safe timer (1.1s) so the preloader can NEVER block or trap the user
     const safetyRelease = setTimeout(() => {
       setIsDone(true);
-    }, 1400);
+    }, 1100);
 
     if (!container) return;
 
     const tl = gsap.timeline({
       onComplete: () => {
-        try {
-          sessionStorage.setItem("oc_preloader_seen", "true");
-        } catch {}
         setIsDone(true);
       },
     });
@@ -58,11 +50,11 @@ export default function Preloader() {
     gsap.set(ampersand, { scale: 0.8, opacity: 0 });
     gsap.set(tagline, { opacity: 0, y: 8 });
 
-    // 02. Snappy luxury reveal (fast and fluid)
+    // 02. Sleek luxury reveal (~0.7s total, non-blocking)
     tl.to(spotlight, {
       opacity: 0.9,
       scale: 1.1,
-      duration: 0.45,
+      duration: 0.35,
       ease: "power2.out",
     })
       .to(
@@ -71,37 +63,37 @@ export default function Preloader() {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.45,
-          stagger: 0.08,
+          duration: 0.35,
+          stagger: 0.06,
           ease: "power2.out",
         },
-        "-=0.2"
+        "-=0.15"
       )
       .to(
         line,
         {
           opacity: 1,
           scaleX: 1,
-          duration: 0.4,
+          duration: 0.3,
           ease: "expo.out",
         },
-        "-=0.2"
+        "-=0.15"
       )
       .to(
         tagline,
         {
           opacity: 1,
           y: 0,
-          duration: 0.35,
+          duration: 0.25,
           ease: "power2.out",
         },
-        "-=0.15"
+        "-=0.1"
       )
-      .to({}, { duration: 0.2 })
-      // Smooth dissolve
+      .to({}, { duration: 0.15 })
+      // Smooth cinematic dissolve
       .to(container, {
         opacity: 0,
-        duration: 0.45,
+        duration: 0.35,
         ease: "power2.inOut",
         onStart: () => {
           if (container) container.style.pointerEvents = "none";
@@ -115,9 +107,6 @@ export default function Preloader() {
   }, []);
 
   const handleSkip = () => {
-    try {
-      sessionStorage.setItem("oc_preloader_seen", "true");
-    } catch {}
     setIsDone(true);
   };
 
@@ -129,7 +118,7 @@ export default function Preloader() {
       role="dialog"
       aria-label="Welcome to Obsidian & Cacao"
       aria-modal="true"
-      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-obsidian text-ivory overflow-hidden transition-opacity duration-300 pointer-events-none"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-obsidian text-ivory overflow-hidden pointer-events-none transition-opacity duration-300"
     >
       {/* Distant warm directional light */}
       <div

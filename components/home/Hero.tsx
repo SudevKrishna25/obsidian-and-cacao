@@ -91,13 +91,15 @@ export default function Hero() {
 
       // 2. High-performance mouse parallax depth using quickTo (zero tween churn)
       const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      let handleMouseMove: ((e: MouseEvent) => void) | null = null;
+
       if (!isTouch) {
         const setBgX = bgImg ? gsap.quickTo(bgImg, "x", { duration: 0.8, ease: "power2.out" }) : null;
         const setBgY = bgImg ? gsap.quickTo(bgImg, "y", { duration: 0.8, ease: "power2.out" }) : null;
         const setCardX = rightCard ? gsap.quickTo(rightCard, "x", { duration: 1.0, ease: "power2.out" }) : null;
         const setCardY = rightCard ? gsap.quickTo(rightCard, "y", { duration: 1.0, ease: "power2.out" }) : null;
 
-        const handleMouseMove = (e: MouseEvent) => {
+        handleMouseMove = (e: MouseEvent) => {
           const xFactor = (e.clientX / window.innerWidth - 0.5) * 14;
           const yFactor = (e.clientY / window.innerHeight - 0.5) * 14;
 
@@ -136,6 +138,12 @@ export default function Hero() {
         .to(imgContainer, { scale: 1.18, ease: "none" }, 0)
         // Dark cinematic overlay deepens
         .to(overlay, { opacity: 0.85, ease: "none" }, 0);
+
+      return () => {
+        if (handleMouseMove) {
+          window.removeEventListener("mousemove", handleMouseMove);
+        }
+      };
     }, heroRef);
 
     return () => ctx.revert();

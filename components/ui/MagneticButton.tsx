@@ -42,7 +42,7 @@ export default function MagneticButton({
     const el = buttonRef.current;
     if (!el || isReducedMotion()) return;
 
-    // Only apply on fine pointer devices (desktop)
+    // Only apply on desktop fine pointer devices
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     if (isTouch) return;
 
@@ -54,7 +54,44 @@ export default function MagneticButton({
     let contentTargetY = 0;
     let contentCurrentX = 0;
     let contentCurrentY = 0;
-    let rafId: number;
+    let rafId: number | null = null;
+    let isHovering = false;
+
+    const loop = () => {
+      currentX += (targetX - currentX) * 0.16;
+      currentY += (targetY - currentY) * 0.16;
+      contentCurrentX += (contentTargetX - contentCurrentX) * 0.16;
+      contentCurrentY += (contentTargetY - contentCurrentY) * 0.16;
+
+      el.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translate3d(${contentCurrentX.toFixed(2)}px, ${contentCurrentY.toFixed(2)}px, 0)`;
+      }
+
+      // Once the button returns to rest, stop the RAF loop completely
+      const atRest = !isHovering && Math.abs(currentX) < 0.1 && Math.abs(currentY) < 0.1;
+      if (atRest) {
+        el.style.transform = "";
+        if (contentRef.current) {
+          contentRef.current.style.transform = "";
+        }
+        rafId = null;
+        return;
+      }
+
+      rafId = requestAnimationFrame(loop);
+    };
+
+    const startLoop = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
+    const handleMouseEnter = () => {
+      isHovering = true;
+      startLoop();
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
@@ -67,37 +104,29 @@ export default function MagneticButton({
       targetY = deltaY * strength;
       contentTargetX = deltaX * (strength * 0.4);
       contentTargetY = deltaY * (strength * 0.4);
+      startLoop();
     };
 
     const handleMouseLeave = () => {
+      isHovering = false;
       targetX = 0;
       targetY = 0;
       contentTargetX = 0;
       contentTargetY = 0;
+      startLoop();
     };
 
-    const loop = () => {
-      currentX += (targetX - currentX) * 0.15;
-      currentY += (targetY - currentY) * 0.15;
-      contentCurrentX += (contentTargetX - contentCurrentX) * 0.15;
-      contentCurrentY += (contentTargetY - contentCurrentY) * 0.15;
-
-      el.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      if (contentRef.current) {
-        contentRef.current.style.transform = `translate3d(${contentCurrentX}px, ${contentCurrentY}px, 0)`;
-      }
-
-      rafId = requestAnimationFrame(loop);
-    };
-
-    el.addEventListener("mousemove", handleMouseMove);
-    el.addEventListener("mouseleave", handleMouseLeave);
-    rafId = requestAnimationFrame(loop);
+    el.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+    el.addEventListener("mousemove", handleMouseMove, { passive: true });
+    el.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     return () => {
+      el.removeEventListener("mouseenter", handleMouseEnter);
       el.removeEventListener("mousemove", handleMouseMove);
       el.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(rafId);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, [strength]);
 
