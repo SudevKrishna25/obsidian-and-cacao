@@ -70,9 +70,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${cormorant.variable} ${manrope.variable} ${playfair.variable}`}
     >
-      <body className="bg-obsidian text-ivory antialiased selection:bg-cacao selection:text-ivory">
+      <body
+        suppressHydrationWarning
+        className="bg-obsidian text-ivory antialiased selection:bg-cacao selection:text-ivory"
+      >
         <SmoothScroll>
           <Preloader />
           <CustomCursor />

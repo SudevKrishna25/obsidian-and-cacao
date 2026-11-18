@@ -11,112 +11,120 @@ export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    // Check touch screen or reduced motion
-    const touchDevice = window.matchMedia("(pointer: coarse)").matches;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (typeof window === "undefined") return;
 
-    if (touchDevice || prefersReducedMotion) {
-      setIsTouch(true);
-      return;
-    }
+    try {
+      // Check touch screen or reduced motion
+      const touchDevice = window.matchMedia("(pointer: coarse)").matches;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    document.body.classList.add("custom-cursor-active");
-
-    let mouseX = -100;
-    let mouseY = -100;
-    let ringX = -100;
-    let ringY = -100;
-    let rafId: number | null = null;
-    let isVisibleLocal = false;
-
-    let isHoveringCurrent = false;
-    let cursorTextCurrent: string | null = null;
-
-    const loop = () => {
-      const ease = 0.2;
-      const dx = mouseX - ringX;
-      const dy = mouseY - ringY;
-      ringX += dx * ease;
-      ringY += dy * ease;
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
-      }
-
-      // If close enough and mouse stopped, sleep RAF
-      if (Math.abs(dx) < 0.2 && Math.abs(dy) < 0.2) {
-        rafId = null;
+      if (touchDevice || prefersReducedMotion) {
+        setIsTouch(true);
         return;
       }
 
-      rafId = requestAnimationFrame(loop);
-    };
+      document.body.classList.add("custom-cursor-active");
 
-    const wakeLoop = () => {
-      if (!rafId) {
+      let mouseX = -100;
+      let mouseY = -100;
+      let ringX = -100;
+      let ringY = -100;
+      let rafId: number | null = null;
+      let isVisibleLocal = false;
+
+      let isHoveringCurrent = false;
+      let cursorTextCurrent: string | null = null;
+
+      const loop = () => {
+        const ease = 0.2;
+        const dx = mouseX - ringX;
+        const dy = mouseY - ringY;
+        ringX += dx * ease;
+        ringY += dy * ease;
+
+        if (ringRef.current) {
+          ringRef.current.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
+        }
+
+        // If close enough and mouse stopped, sleep RAF
+        if (Math.abs(dx) < 0.2 && Math.abs(dy) < 0.2) {
+          rafId = null;
+          return;
+        }
+
         rafId = requestAnimationFrame(loop);
-      }
-    };
+      };
 
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      const wakeLoop = () => {
+        if (!rafId) {
+          rafId = requestAnimationFrame(loop);
+        }
+      };
 
-      if (!isVisibleLocal) {
+      const onMouseMove = (e: MouseEvent) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isVisibleLocal) {
+          isVisibleLocal = true;
+          setIsVisible(true);
+        }
+
+        if (dotRef.current) {
+          dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+        }
+
+        wakeLoop();
+
+        // Check for hover state on interactive targets
+        try {
+          const target = e.target as HTMLElement | null;
+          if (target && typeof target.closest === "function") {
+            const interactive = !!target.closest(
+              'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
+            );
+            const cursorDataEl = target.closest("[data-cursor-text]");
+            const text = cursorDataEl?.getAttribute("data-cursor-text") || null;
+
+            if (interactive !== isHoveringCurrent) {
+              isHoveringCurrent = interactive;
+              setIsHovering(interactive);
+            }
+            if (text !== cursorTextCurrent) {
+              cursorTextCurrent = text;
+              setCursorText(text);
+            }
+          }
+        } catch {}
+      };
+
+      const onMouseLeave = () => {
+        isVisibleLocal = false;
+        setIsVisible(false);
+      };
+
+      const onMouseEnter = () => {
         isVisibleLocal = true;
         setIsVisible(true);
-      }
+        wakeLoop();
+      };
 
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-      }
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+      document.addEventListener("mouseleave", onMouseLeave, { passive: true });
+      document.addEventListener("mouseenter", onMouseEnter, { passive: true });
 
-      wakeLoop();
-
-      // Check for hover state on interactive targets
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        const interactive = !!target.closest(
-          'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
-        );
-        const cursorDataEl = target.closest("[data-cursor-text]");
-        const text = cursorDataEl?.getAttribute("data-cursor-text") || null;
-
-        if (interactive !== isHoveringCurrent) {
-          isHoveringCurrent = interactive;
-          setIsHovering(interactive);
+      return () => {
+        document.body.classList.remove("custom-cursor-active");
+        window.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseleave", onMouseLeave);
+        document.removeEventListener("mouseenter", onMouseEnter);
+        if (rafId) {
+          cancelAnimationFrame(rafId);
         }
-        if (text !== cursorTextCurrent) {
-          cursorTextCurrent = text;
-          setCursorText(text);
-        }
-      }
-    };
-
-    const onMouseLeave = () => {
-      isVisibleLocal = false;
-      setIsVisible(false);
-    };
-
-    const onMouseEnter = () => {
-      isVisibleLocal = true;
-      setIsVisible(true);
-      wakeLoop();
-    };
-
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
-    document.addEventListener("mouseenter", onMouseEnter, { passive: true });
-
-    return () => {
-      document.body.classList.remove("custom-cursor-active");
-      window.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseleave", onMouseLeave);
-      document.removeEventListener("mouseenter", onMouseEnter);
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-    };
+      };
+    } catch {
+      setIsTouch(true);
+    }
   }, []);
 
   if (isTouch) return null;

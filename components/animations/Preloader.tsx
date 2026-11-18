@@ -14,8 +14,13 @@ export default function Preloader() {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion
-    if (isReducedMotion()) {
+    // Respect reduced motion safely
+    try {
+      if (isReducedMotion()) {
+        setIsDone(true);
+        return;
+      }
+    } catch {
       setIsDone(true);
       return;
     }
@@ -35,75 +40,82 @@ export default function Preloader() {
 
     if (!container) return;
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsDone(true);
-      },
-    });
-
-    // 01. Initial setup
-    gsap.set(container, { opacity: 1 });
-    gsap.set(spotlight, { scale: 0.8, opacity: 0 });
-    gsap.set(line, { scaleX: 0, opacity: 0 });
-    gsap.set(submark, { opacity: 0, y: 10 });
-    gsap.set(wordmark, { opacity: 0, y: 15 });
-    gsap.set(ampersand, { scale: 0.8, opacity: 0 });
-    gsap.set(tagline, { opacity: 0, y: 8 });
-
-    // 02. Sleek luxury reveal (~0.7s total, non-blocking)
-    tl.to(spotlight, {
-      opacity: 0.9,
-      scale: 1.1,
-      duration: 0.35,
-      ease: "power2.out",
-    })
-      .to(
-        [submark, wordmark, ampersand],
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.35,
-          stagger: 0.06,
-          ease: "power2.out",
-        },
-        "-=0.15"
-      )
-      .to(
-        line,
-        {
-          opacity: 1,
-          scaleX: 1,
-          duration: 0.3,
-          ease: "expo.out",
-        },
-        "-=0.15"
-      )
-      .to(
-        tagline,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.25,
-          ease: "power2.out",
-        },
-        "-=0.1"
-      )
-      .to({}, { duration: 0.15 })
-      // Smooth cinematic dissolve
-      .to(container, {
-        opacity: 0,
-        duration: 0.35,
-        ease: "power2.inOut",
-        onStart: () => {
-          if (container) container.style.pointerEvents = "none";
+    try {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsDone(true);
         },
       });
 
-    return () => {
-      clearTimeout(safetyRelease);
-      tl.kill();
-    };
+      // 01. Initial setup
+      gsap.set(container, { opacity: 1 });
+      gsap.set(spotlight, { scale: 0.8, opacity: 0 });
+      gsap.set(line, { scaleX: 0, opacity: 0 });
+      gsap.set(submark, { opacity: 0, y: 10 });
+      gsap.set(wordmark, { opacity: 0, y: 15 });
+      gsap.set(ampersand, { scale: 0.8, opacity: 0 });
+      gsap.set(tagline, { opacity: 0, y: 8 });
+
+      // 02. Sleek luxury reveal (~0.7s total, non-blocking)
+      tl.to(spotlight, {
+        opacity: 0.9,
+        scale: 1.1,
+        duration: 0.35,
+        ease: "power2.out",
+      })
+        .to(
+          [submark, wordmark, ampersand],
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.35,
+            stagger: 0.06,
+            ease: "power2.out",
+          },
+          "-=0.15"
+        )
+        .to(
+          line,
+          {
+            opacity: 1,
+            scaleX: 1,
+            duration: 0.3,
+            ease: "expo.out",
+          },
+          "-=0.15"
+        )
+        .to(
+          tagline,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "-=0.1"
+        )
+        .to({}, { duration: 0.15 })
+        // Smooth cinematic dissolve
+        .to(container, {
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.inOut",
+          onStart: () => {
+            if (container) container.style.pointerEvents = "none";
+          },
+        });
+
+      return () => {
+        clearTimeout(safetyRelease);
+        try {
+          tl.kill();
+        } catch {}
+      };
+    } catch {
+      setIsDone(true);
+      return () => clearTimeout(safetyRelease);
+    }
   }, []);
 
   const handleSkip = () => {

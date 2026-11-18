@@ -10,66 +10,85 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Respect reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
+    // Check if in browser and respect reduced motion safely
+    if (typeof window === "undefined") return;
 
-    const lenis = new Lenis({
-      duration: 0.85,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
-      syncTouch: false,
-    });
-    lenisRef.current = lenis;
+    try {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
 
-    // Synchronize Lenis with GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+      const lenis = new Lenis({
+        duration: 0.85,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.0,
+        syncTouch: false,
+      });
+      lenisRef.current = lenis;
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+      // Safely synchronize Lenis with GSAP ScrollTrigger
+      const onLenisScroll = () => {
+        try {
+          ScrollTrigger.update();
+        } catch {}
+      };
+      lenis.on("scroll", onLenisScroll);
 
-    gsap.ticker.add(updateTicker);
+      const updateTicker = (time: number) => {
+        try {
+          lenis.raf(time * 1000);
+        } catch {}
+      };
 
-    // CRITICAL: Disable GSAP lag smoothing so GSAP and Lenis never drop or lag frames behind
-    gsap.ticker.lagSmoothing(0);
+      gsap.ticker.add(updateTicker);
+      gsap.ticker.lagSmoothing(0);
 
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener("resize", handleResize, { passive: true });
+      const handleResize = () => {
+        try {
+          ScrollTrigger.refresh();
+        } catch {}
+      };
+      window.addEventListener("resize", handleResize, { passive: true });
 
-    // Initial refresh after assets settle
-    const initTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
+      const initTimer = setTimeout(() => {
+        try {
+          ScrollTrigger.refresh();
+        } catch {}
+      }, 200);
 
-    return () => {
-      clearTimeout(initTimer);
-      window.removeEventListener("resize", handleResize);
-      gsap.ticker.remove(updateTicker);
-      lenis.destroy();
-      lenisRef.current = null;
-    };
+      return () => {
+        clearTimeout(initTimer);
+        window.removeEventListener("resize", handleResize);
+        gsap.ticker.remove(updateTicker);
+        try {
+          lenis.destroy();
+        } catch {}
+        lenisRef.current = null;
+      };
+    } catch {
+      // In case of unsupported browser features, fallback smoothly to native scrolling
+    }
   }, []);
 
-  // When pathname changes (route navigation), immediately reset scroll to top and refresh ScrollTrigger
+  // When pathname changes (route navigation), safely reset scroll to top and refresh ScrollTrigger
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
-    window.scrollTo(0, 0);
+    try {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
 
-    // Refresh ScrollTrigger once the new page DOM is mounted
-    const routeTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 150);
+      const routeTimer = setTimeout(() => {
+        try {
+          ScrollTrigger.refresh();
+        } catch {}
+      }, 150);
 
-    return () => clearTimeout(routeTimer);
+      return () => clearTimeout(routeTimer);
+    } catch {}
   }, [pathname]);
 
   return <>{children}</>;
